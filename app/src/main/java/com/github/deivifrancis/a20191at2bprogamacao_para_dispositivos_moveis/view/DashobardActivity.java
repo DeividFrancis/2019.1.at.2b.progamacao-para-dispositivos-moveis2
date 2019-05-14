@@ -1,4 +1,4 @@
-package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.Activity;
+package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

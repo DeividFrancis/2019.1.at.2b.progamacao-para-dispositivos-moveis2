@@ -1,11 +1,11 @@
-package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis;
+package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean;
 
-public class Papel {
+public class PapelBean {
 
     Integer id;
     String descricao;
 
-    public Papel(){
+    public PapelBean(){
         this.id = getId();
         this.descricao = getDescricao();
     }

@@ -1,15 +1,15 @@
-package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.Helper;
+package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class ConnectionDB extends SQLiteOpenHelper {
 
     private static final String banco = "APP_PONTO";
     private static final Integer versao = 1;
 
-    public DatabaseHelper(Context context){
+    public ConnectionDB(Context context){
         super(context, banco, null, versao);
     }
 

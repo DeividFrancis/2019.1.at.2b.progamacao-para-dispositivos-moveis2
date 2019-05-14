@@ -1,10 +1,10 @@
-package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis;
+package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean;
 
-public class PessoaPapel {
+public class PessoaPapelBean {
 
     Integer id, pes_id;
 
-    public PessoaPapel(){
+    public PessoaPapelBean(){
         this.id = getId();
         this.pes_id = getPes_id();
     }

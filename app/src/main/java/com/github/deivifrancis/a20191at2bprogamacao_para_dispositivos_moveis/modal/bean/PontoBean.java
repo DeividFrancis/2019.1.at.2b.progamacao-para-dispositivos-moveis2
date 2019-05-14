@@ -1,14 +1,14 @@
-package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis;
+package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean;
 
 import java.util.Date;
 
-public class Ponto {
+public class PontoBean {
 
     Integer id, pes_id;
     Date data;
     String hora01,hora02,hora03,hora04,hora05,hora06,hora07,hora08;
 
-    public Ponto(){
+    public PontoBean(){
         this.id = getId();
         this.data = getData();
     }

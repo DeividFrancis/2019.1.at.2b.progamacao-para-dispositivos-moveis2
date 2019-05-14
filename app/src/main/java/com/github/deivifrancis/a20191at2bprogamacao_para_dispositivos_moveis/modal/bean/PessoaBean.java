@@ -1,11 +1,11 @@
-package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis;
+package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean;
 
-public class Pessoa {
+public class PessoaBean {
 
     Integer id;
     String nome, cpf, idade, logradouro, telefone, email, senha, numero, cidade, estado;
 
-    public Pessoa(){
+    public PessoaBean(){
         this.id = getId();
         this.nome = getNome();
         this.email = getEmail();

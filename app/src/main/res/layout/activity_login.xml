@@ -9,7 +9,7 @@
     android:layout_marginRight="16dp"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Activity.LoginActivity">
+    tools:context=".view.LoginActivity">
 
     <ImageView
         android:id="@+id/imageView"
