@@ -13,11 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.DashobardActivity"></activity>
+        <activity android:name=".Activity.CadastroActivity"></activity>
+        <activity android:name=".Activity.DashobardActivity" />
         <activity
             android:name=".LoginActivity2"
             android:label="@string/title_activity_login2" />
-        <activity android:name=".Activity.CadastroActivity" />
         <activity android:name=".Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
