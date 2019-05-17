@@ -4,13 +4,24 @@ import java.util.Date;
 
 public class PontoBean {
 
-    Integer id, pes_id;
+    Integer id, pessoaId;
     Date data;
-    String hora01,hora02,hora03,hora04,hora05,hora06,hora07,hora08;
+    String hora01,hora02,hora03,hora04,hora05,hora06,hora07,hora08,hora09,hora10;
 
     public PontoBean(){
         this.id = getId();
         this.data = getData();
+        this.pessoaId = getPessoaId();
+        this.hora01 = getHora01();
+        this.hora02 = getHora02();
+        this.hora03 = getHora03();
+        this.hora04 = getHora04();
+        this.hora05 = getHora05();
+        this.hora06 = getHora06();
+        this.hora07 = getHora07();
+        this.hora08 = getHora08();
+        this.hora09 = getHora09();
+        this.hora10 = getHora10();
     }
 
     public Integer getId() {
@@ -93,13 +104,30 @@ public class PontoBean {
         this.hora08 = hora08;
     }
 
-    public Integer getPes_id() {
-        return pes_id;
+    public String getHora09() {
+        return hora09;
     }
 
-    public void setPes_id(Integer pes_id) {
-        this.pes_id = pes_id;
+    public void setHora09(String hora09) {
+        this.hora09 = hora09;
+    }
+
+    public String getHora10() {
+        return hora10;
+    }
+
+    public void setHora10(String hora10) {
+        this.hora10 = hora10;
+    }
+
+    public Integer getPessoaId() {
+        return pessoaId;
+    }
+
+    public void setPessoaId(Integer pessoaId) {
+        this.pessoaId = pessoaId;
     }
 }
+
 
 

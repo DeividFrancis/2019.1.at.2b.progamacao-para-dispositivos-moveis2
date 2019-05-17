@@ -1,15 +1,24 @@
 package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean;
 
+import java.util.Date;
+
 public class PessoaBean {
 
     Integer id;
-    String nome, cpf, idade, logradouro, telefone, email, senha, numero, cidade, estado;
+    String nome, cpf, logradouro, telefone, email, senha, numero, cidade, estado;
+    Date aniversario;
 
     public PessoaBean(){
         this.id = getId();
         this.nome = getNome();
+        this.cpf = getCpf();
+        this.aniversario = getAniversario();
+        this.logradouro = getLogradouro();
+        this.telefone = getTelefone();
         this.email = getEmail();
-        this.senha = getSenha();
+        this.numero = getNumero();
+        this.cidade = getCidade();
+        this.estado = getEstado();
     }
 
     public Integer getId(){
@@ -44,12 +53,12 @@ public class PessoaBean {
         this.cpf = cpf;
     }
 
-    public String getIdade() {
-        return idade;
+    public Date getAniversario() {
+        return aniversario;
     }
 
-    public void setIdade(String idade) {
-        this.idade = idade;
+    public void setAniversario(Date aniversario) {
+        this.aniversario = aniversario;
     }
 
     public String getLogradouro() {
@@ -99,4 +108,5 @@ public class PessoaBean {
     public void setNumero(String numero) {
         this.numero = numero;
     }
+
 }

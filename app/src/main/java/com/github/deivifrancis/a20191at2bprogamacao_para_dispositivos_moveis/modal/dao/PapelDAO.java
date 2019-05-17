@@ -7,7 +7,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PapelBean;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaBean;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.CondicaoEnum;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.ConnectionDB;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.Filtro;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +19,7 @@ public class PapelDAO extends ConnectionDB {
     SQLiteDatabase db;
     ContentValues dados;
 
-    private static final String TABLE = "PAPEL";
+    private static final String TABELA = "PAPEL";
 
     public PapelDAO(Context context){
         super(context);
@@ -29,7 +32,7 @@ public class PapelDAO extends ConnectionDB {
         dados = new ContentValues();
         dados.put("descricao",papelBean.getDescricao());
         try {
-            papelId = db.insertOrThrow(TABLE,null,dados);
+            papelId = db.insertOrThrow(TABELA,null,dados);
         }catch (SQLException e){
             throw new ErrorException("Erro ao cadastrar o papel.",e);
         }
@@ -43,7 +46,7 @@ public class PapelDAO extends ConnectionDB {
         dados = new ContentValues();
         dados.put("descricao",papelBean.getDescricao());
         try {
-            db.update(TABLE,dados, "_id = ?", new String[] {String.valueOf(papelBean.getId())});
+            db.update(TABELA,dados, "_id = ?", new String[] {String.valueOf(papelBean.getId())});
         }catch (SQLException e){
             throw new ErrorException("Erro ao atualizar o papel.",e);
         }
@@ -51,31 +54,21 @@ public class PapelDAO extends ConnectionDB {
         return  papelBean;
     }
 
-    public PapelBean buscar(Integer id) throws ErrorException {
+    public PapelBean buscarId(Integer id) throws ErrorException {
 
         PapelBean papelBean = null;
-
-        Cursor cursor = db.rawQuery("SELECT _id, descricao FROM " + TABLE + " WHERE _id = ?", new String[] {String.valueOf(id)});
-
-        if (cursor.getCount() > 0){
-            cursor.moveToFirst();
-            do {
-                papelBean = new PapelBean();
-                papelBean.setId(cursor.getInt(0));
-                papelBean.setDescricao(cursor.getString(1));
-            }while (cursor.moveToNext());
-        }else{
-            throw new ErrorException("Papel não encontrado");
-        }
-
+        Filtro filtro = new Filtro();
+        filtro.adicionar("_id", CondicaoEnum.EQUALS,id);
+        List<PapelBean> lista = buscar(filtro);
+        papelBean = lista.get(0);
         return papelBean;
     }
 
-    public List<PapelBean> listarTodos() throws ErrorException {
+    public List<PapelBean> buscar(Filtro filtro) throws ErrorException {
 
-        List<PapelBean> lista = new ArrayList<PapelBean>();
+        List<PapelBean> papelBeans = new ArrayList<PapelBean>();
 
-        Cursor cursor = db.rawQuery("SELECT _id, descricao FROM " + TABLE, null);
+        Cursor cursor = db.rawQuery("SELECT _id, descricao FROM " + TABELA + " WHERE 1 "+CondicaoEnum.EQUALS.get()+ " 1 " + filtro.criarCondicao(), filtro.criarParametros());
 
         if (cursor.getCount() > 0){
             cursor.moveToFirst();
@@ -83,17 +76,17 @@ public class PapelDAO extends ConnectionDB {
                 PapelBean papelBean = new PapelBean();
                 papelBean.setId(cursor.getInt(0));
                 papelBean.setDescricao(cursor.getString(1));
-                lista.add(papelBean);
+                papelBeans.add(papelBean);
             }while (cursor.moveToNext());
         }else{
             throw new ErrorException("Papéis não encontrados");
         }
 
-        return lista;
+        return papelBeans;
     }
 
     public void deletar(Integer id){
-       db.delete(TABLE, "_id = ?", new String[] {String.valueOf(id)});
+       db.delete(TABELA, "_id = ?", new String[] {String.valueOf(id)});
     }
 
 }

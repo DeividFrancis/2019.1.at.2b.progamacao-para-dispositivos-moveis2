@@ -70,7 +70,7 @@
                 android:inputType="textEmailAddress" />
 
             <EditText
-                android:id="@+id/edtDataNascimento"
+                android:id="@+id/edtAniversario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing"
@@ -147,6 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@android:dimen/app_icon_size"
+                android:onClick="onClick"
                 android:text="Cadastrar" />
         </LinearLayout>
     </ScrollView>

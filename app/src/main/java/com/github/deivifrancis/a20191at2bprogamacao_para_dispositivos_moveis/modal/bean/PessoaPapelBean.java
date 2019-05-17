@@ -2,11 +2,12 @@ package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.mo
 
 public class PessoaPapelBean {
 
-    Integer id, pes_id;
+    Integer id, pessoaId, papelId;
 
     public PessoaPapelBean(){
         this.id = getId();
-        this.pes_id = getPes_id();
+        this.pessoaId = getPessoaId();
+        this.papelId = getPapelId();
     }
 
     public Integer getId() {
@@ -17,11 +18,19 @@ public class PessoaPapelBean {
         this.id = id;
     }
 
-    public Integer getPes_id() {
-        return pes_id;
+    public Integer getPessoaId() {
+        return pessoaId;
     }
 
-    public void setPes_id(Integer pes_id) {
-        this.pes_id = pes_id;
+    public void setPessoaId(Integer pessoaId) {
+        this.pessoaId = pessoaId;
+    }
+
+    public Integer getPapelId() {
+        return papelId;
+    }
+
+    public void setPapelId(Integer papelId) {
+        this.papelId = papelId;
     }
 }
