@@ -14,6 +14,7 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.R;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.ConfiguracaoGeralController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PessoaController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.ConfiguracaoGeralBean;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.dao.ErrorException;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.dd.AppDD;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.DateUtils;
@@ -86,10 +87,10 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         PessoaController pessoaController = new PessoaController(this);
-        pessoaController.fazerLogin(usuario, senhaMd5);
-
+        PessoaBean pessoaBean  = pessoaController.fazerLogin(usuario, senhaMd5);
 
         ConfiguracaoGeralBean configuracaoGeralBean = new ConfiguracaoGeralBean();
+        configuracaoGeralBean.setUsuarioLogadoId(pessoaBean.getId());
         configuracaoGeralBean.setUsuario(usuario);
         configuracaoGeralBean.setUltimoLogin(new Date());
 
@@ -107,8 +108,9 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void iniciarDD() throws ErrorException, ParseException {
-        new AppDD(this);
+    private void iniciarDD() throws ErrorException {
+       AppDD appDD = new AppDD(this);
+       appDD.cadastrarPorPadrao();
     }
 
     public void validarLembrarSenhaECarregarBundle() throws ErrorException, ParseException {

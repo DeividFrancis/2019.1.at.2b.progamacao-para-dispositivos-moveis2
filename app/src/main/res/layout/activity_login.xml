@@ -24,7 +24,7 @@
         android:ems="10"
         android:hint="Cpf"
         android:inputType="number"
-        android:text="02635286358" />
+        android:text="12312312312" />
 
     <EditText
         android:id="@+id/edtSenha"

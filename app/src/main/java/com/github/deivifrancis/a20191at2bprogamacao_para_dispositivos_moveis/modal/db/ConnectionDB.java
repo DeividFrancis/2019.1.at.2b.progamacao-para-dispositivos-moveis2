@@ -43,7 +43,7 @@ public class ConnectionDB extends SQLiteOpenHelper {
 
         StringBuilder pessoaPapel = new StringBuilder();
         pessoaPapel.append("        CREATE TABLE PESSOAPAPEL (                                                            ");
-        pessoaPapel.append("        				ID INTEGER PRIMARY KEY AUTOINCREMENT,                                 ");
+        pessoaPapel.append("        				_ID INTEGER PRIMARY KEY AUTOINCREMENT,                                 ");
         pessoaPapel.append("                        PESSOA_ID INTEGER,                                                    ");
         pessoaPapel.append("                        PAPEL_ID INTEGER,                                                     ");
         pessoaPapel.append("                        FOREIGN KEY(PESSOA_ID) REFERENCES PESSOA(_ID),                        ");

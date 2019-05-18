@@ -2,19 +2,25 @@ package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.mo
 
 public class PessoaPapelBean {
 
-    Integer id, pessoaId, papelId;
+    private Integer id;
+    private Integer pessoaId;
+    private Integer papelId;
 
     public PessoaPapelBean(){
-        this.id = getId();
-        this.pessoaId = getPessoaId();
-        this.papelId = getPapelId();
+
+    }
+
+    public PessoaPapelBean(Integer id, Integer pessoaId, Integer papelId) {
+        this.id = id;
+        this.pessoaId = pessoaId;
+        this.papelId = papelId;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id){
+    public void setId(Integer id) {
         this.id = id;
     }
 

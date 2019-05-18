@@ -117,4 +117,12 @@ public class PessoaDAO extends ConnectionDB {
         db.delete(TABELA,"_id "+ CondicaoEnum.EQUALS +" ?", new String[] {String.valueOf(id)});
     }
 
+    public void fundir(PessoaBean pessoaBean) throws ErrorException {
+        try {
+            buscarId(pessoaBean.getId());
+            atualizar(pessoaBean);
+        }catch (ErrorException e){
+            inserir(pessoaBean);
+        }
+    }
 }

@@ -6,8 +6,12 @@ public class PapelBean {
     String descricao;
 
     public PapelBean(){
-        this.id = getId();
-        this.descricao = getDescricao();
+
+    }
+
+    public PapelBean(Integer id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
     }
 
     public Integer getId() {

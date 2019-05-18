@@ -89,4 +89,12 @@ public class PapelDAO extends ConnectionDB {
        db.delete(TABELA, "_id = ?", new String[] {String.valueOf(id)});
     }
 
+    public void fundir(PapelBean papelBean) throws ErrorException {
+        try {
+            buscarId(papelBean.getId());
+            atualizar(papelBean);
+        } catch (ErrorException e) {
+            inserir(papelBean);
+        }
+    }
 }

@@ -4,45 +4,50 @@ import java.util.Date;
 
 public class PessoaBean {
 
-    Integer id;
-    String nome, cpf, logradouro, telefone, email, senha, numero, cidade, estado;
-    Date aniversario;
+    private Integer id;
+    private String nome;
+    private String cpf;
+    private String logradouro;
+    private String telefone;
+    private String email;
+    private String senha;
+    private String numero;
+    private String cidade;
+    private String estado;
+    private Date aniversario;
 
     public PessoaBean(){
-        this.id = getId();
-        this.nome = getNome();
-        this.cpf = getCpf();
-        this.aniversario = getAniversario();
-        this.logradouro = getLogradouro();
-        this.telefone = getTelefone();
-        this.email = getEmail();
-        this.numero = getNumero();
-        this.cidade = getCidade();
-        this.estado = getEstado();
+
     }
 
-    public Integer getId(){
+    public PessoaBean(Integer id, String nome, String cpf, String logradouro, String telefone, String email, String senha, String numero, String cidade, String estado, Date aniversario) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.logradouro = logradouro;
+        this.telefone = telefone;
+        this.email = email;
+        this.senha = senha;
+        this.numero = numero;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.aniversario = aniversario;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id){
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getNome(){
+    public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getCpf() {
@@ -53,20 +58,28 @@ public class PessoaBean {
         this.cpf = cpf;
     }
 
-    public Date getAniversario() {
-        return aniversario;
-    }
-
-    public void setAniversario(Date aniversario) {
-        this.aniversario = aniversario;
-    }
-
     public String getLogradouro() {
         return logradouro;
     }
 
     public void setLogradouro(String logradouro) {
         this.logradouro = logradouro;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getSenha() {
@@ -77,12 +90,12 @@ public class PessoaBean {
         this.senha = senha;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     public String getCidade() {
@@ -101,12 +114,11 @@ public class PessoaBean {
         this.estado = estado;
     }
 
-    public String getNumero() {
-        return numero;
+    public Date getAniversario() {
+        return aniversario;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public void setAniversario(Date aniversario) {
+        this.aniversario = aniversario;
     }
-
 }
