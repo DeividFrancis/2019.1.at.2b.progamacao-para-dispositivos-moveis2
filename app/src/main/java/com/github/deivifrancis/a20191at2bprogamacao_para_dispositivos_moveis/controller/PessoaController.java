@@ -2,6 +2,7 @@ package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.co
 
 import android.content.Context;
 
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.Seed.PessoaSeed;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaPapelBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.erro.ErrorException;
@@ -65,4 +66,21 @@ public class PessoaController {
         return pessoaDAO.buscarId(usuarioLogadoId);
     }
 
+    public PessoaBean resetarSenha(String email) throws ErrorException {
+        try {
+            PessoaDAO pessoaDAO = new PessoaDAO(context);
+            PessoaBean pessoaBean = new PessoaBean();
+            Filtro filtro = new Filtro();
+            filtro.adicionar("email",CondicaoEnum.EQUALS,email);
+            List<PessoaBean> pessoaBeans = pessoaDAO.buscar(filtro);
+
+            pessoaBean = pessoaBeans.get(0);
+            pessoaBean.setSenha(PessoaSeed.RESETA_SENHA_PADRAO);
+            pessoaBean =  pessoaDAO.atualizar(pessoaBean);
+
+            return pessoaBean;
+        }catch (ErrorException e){
+            throw new ErrorException("Email não encontrado.", e);
+        }
+    }
 }

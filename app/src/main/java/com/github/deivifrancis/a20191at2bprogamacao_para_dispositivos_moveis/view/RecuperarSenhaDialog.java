@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.R;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PessoaController;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.erro.ErrorException;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaBean;
 
 public class RecuperarSenhaDialog extends Dialog {
 
@@ -31,18 +34,25 @@ public class RecuperarSenhaDialog extends Dialog {
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = edtEmail.getText().toString();
-                String msg = "Sua senha foi enviada para o email " + email + "/r";
-                msg += "DEBUG: sua senha é 1234";
+                String email = (edtEmail.getText().toString());
+                String msg = "Sua senha foi enviada para o email: " + email + "                                ";
+                msg += "DEBUG: Sua nova senha é: ";
 
-                //pessoa controller resetarSenha(email)
-                //vai retornar uma nova senha.
-                //se não existir email, email nao enctrado.
-                //senha padrao 1234
+                try {
+                    //pessoa controller resetarSenha(email)
+                    PessoaController pessoaController = new PessoaController(getContext());
+                    PessoaBean pessoaBean = pessoaController.resetarSenha(email);
+
+                    Toast.makeText(getContext(), msg + pessoaBean.getSenha(), Toast.LENGTH_LONG).show();
+                } catch (ErrorException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(),"E-mail não encontrado, por favor verifique.",Toast.LENGTH_LONG).show();
+                }
+
+                //vai retornar uma nova senha - ok
+                //se não existir email, email nao enctrado - ok
+                //senha padrao 1234 - ok
                 //deixar de modo configurado
-                //nao posso deixar mais de uma linha.
-
-                Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
             }
         });
     }
