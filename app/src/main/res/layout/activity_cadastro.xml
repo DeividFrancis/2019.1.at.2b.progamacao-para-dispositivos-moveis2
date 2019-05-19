@@ -15,8 +15,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:orientation="vertical">
 
             <LinearLayout
@@ -24,7 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/spacing"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -43,102 +44,151 @@
                     android:textSize="18sp"
                     android:textStyle="normal|bold" />
 
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+
             </LinearLayout>
 
-            <View
-                android:id="@+id/divider"
+            <TextView
+                android:id="@+id/txtNome"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Nome" />
 
             <EditText
                 android:id="@+id/edtNome"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing"
-                android:ems="10"
-                android:hint="Nome"
+                android:layout_height="match_parent"
                 android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/txtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Email" />
 
             <EditText
                 android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing"
                 android:ems="10"
-                android:hint="Email"
                 android:inputType="textEmailAddress" />
+
+            <TextView
+                android:id="@+id/txtAniversario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Aniversário" />
 
             <EditText
                 android:id="@+id/edtAniversario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing"
                 android:ems="10"
-                android:hint="Aniversário"
                 android:inputType="date|textPersonName" />
+
+            <TextView
+                android:id="@+id/txtCpf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Cpf" />
 
             <EditText
                 android:id="@+id/edtCpf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing"
                 android:ems="10"
-                android:hint="CPF"
                 android:inputType="number" />
+
+            <TextView
+                android:id="@+id/txtTelefone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Telefone" />
 
             <EditText
                 android:id="@+id/edtTelefone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing"
                 android:ems="10"
-                android:hint="Telefone"
                 android:inputType="phone" />
+
+
+            <TextView
+                android:id="@+id/txtEndereco"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Endereço" />
 
             <EditText
                 android:id="@+id/edtEndereco"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing"
-                android:ems="10"
-                android:hint="Endereço"
                 android:inputType="text" />
+
+            <TextView
+                android:id="@+id/txtCidade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Cidade" />
 
             <EditText
                 android:id="@+id/edtCidade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing"
                 android:ems="10"
-                android:hint="Cidade"
                 android:inputType="text" />
+
+            <TextView
+                android:id="@+id/txtEstado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Estado" />
 
             <EditText
                 android:id="@+id/edtEstado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing"
                 android:ems="10"
-                android:hint="Estado"
                 android:inputType="text" />
+
+            <TextView
+                android:id="@+id/txtSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Senha" />
 
             <EditText
                 android:id="@+id/edtSenha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing"
                 android:ems="10"
-                android:hint="Senha"
                 android:inputType="textPassword" />
+
+            <TextView
+                android:id="@+id/txtConfirmaSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Confirmar senha" />
 
             <EditText
                 android:id="@+id/edtConfirmarSenha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing"
                 android:ems="10"
-                android:hint="Confirmar Senha"
                 android:inputType="textPassword" />
 
             <Button

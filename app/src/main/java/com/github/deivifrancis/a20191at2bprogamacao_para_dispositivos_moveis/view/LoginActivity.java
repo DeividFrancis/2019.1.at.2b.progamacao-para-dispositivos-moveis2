@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
         ConfiguracaoGeralController configuracaoGeralController = new ConfiguracaoGeralController(this);
         configuracaoGeralController.inserir(configuracaoGeralBean);
 
-        Intent intent = new Intent(this, DashobardActivity.class);
+        Intent intent = new Intent(this, Dashboard2Activity.class);
         intent.putExtras(bundle);
         startActivity(intent);
     }

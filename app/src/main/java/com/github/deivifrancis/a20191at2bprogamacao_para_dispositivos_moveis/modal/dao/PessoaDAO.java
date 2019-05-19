@@ -84,7 +84,15 @@ public class PessoaDAO extends ConnectionDB {
     public List<PessoaBean> buscar(Filtro filtro) throws ErrorException{
         List<PessoaBean> pessoaBeans = new ArrayList<PessoaBean>();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM "+TABELA + " WHERE 1 "+CondicaoEnum.EQUALS.get()+" 1 " + filtro.criarCondicao(), filtro.criarParametros());
+        String condicao = "";
+        String[] parametros = null;
+
+        if(filtro != null){
+            condicao = filtro.criarCondicao();
+            parametros = filtro.criarParametros();
+        }
+
+        Cursor cursor = db.rawQuery("SELECT * FROM "+TABELA + " WHERE 1 "+CondicaoEnum.EQUALS.get()+" 1 " + condicao, parametros);
 
         if (cursor.getCount() > 0){
             cursor.moveToFirst();

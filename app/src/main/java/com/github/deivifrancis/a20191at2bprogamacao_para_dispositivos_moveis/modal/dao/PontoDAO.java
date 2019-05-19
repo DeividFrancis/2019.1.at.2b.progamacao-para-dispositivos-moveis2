@@ -31,7 +31,7 @@ public class PontoDAO extends ConnectionDB {
         Long pontoId = null;
 
         dados = new ContentValues();
-        dados.put("pessoaId",pontoBean.getId());
+        dados.put("pessoa_id",pontoBean.getPessoaId());
         dados.put("data", DateUtils.format(pontoBean.getData()));
         dados.put("hora01",pontoBean.getHora01());
         dados.put("hora02",pontoBean.getHora02());
@@ -55,7 +55,7 @@ public class PontoDAO extends ConnectionDB {
 
     public PontoBean atualizar(PontoBean pontoBean) throws ErrorException {
         dados = new ContentValues();
-        dados.put("pessoaId",pontoBean.getId());
+        dados.put("pessoa_id",pontoBean.getPessoaId());
         dados.put("data", DateUtils.format(pontoBean.getData()));
         dados.put("hora01",pontoBean.getHora01());
         dados.put("hora02",pontoBean.getHora02());
@@ -77,6 +77,7 @@ public class PontoDAO extends ConnectionDB {
     }
 
     public PontoBean buscarId(Integer id) throws ErrorException {
+        if(id == null) throw new ErrorException("id esta vazio");
         PontoBean pontoBean = null;
         Filtro filtro = new Filtro();
         filtro.adicionar("_id", CondicaoEnum.EQUALS, id);
@@ -93,7 +94,15 @@ public class PontoDAO extends ConnectionDB {
     public List<PontoBean> buscar(Filtro filtro) throws ErrorException {
         List<PontoBean> pontoBeans = new ArrayList<>();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM "+TABELA + " WHERE 1 "+CondicaoEnum.EQUALS.get()+" 1 " + filtro.criarCondicao(), filtro.criarParametros());
+        String condicoes = "";
+        String[] parametros = null;
+        if(filtro != null){
+            condicoes = filtro.criarCondicao();
+            parametros = filtro.criarParametros();
+        }
+
+
+        Cursor cursor = db.rawQuery("SELECT * FROM "+TABELA + " WHERE 1 " +CondicaoEnum.EQUALS.get()+" 1 " + condicoes, parametros);
 
         if (cursor.getCount() > 0){
             cursor.moveToFirst();

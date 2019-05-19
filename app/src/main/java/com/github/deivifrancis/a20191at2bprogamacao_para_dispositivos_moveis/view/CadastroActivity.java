@@ -57,8 +57,9 @@ public class CadastroActivity extends AppCompatActivity {
                 PessoaController pessoaController = new PessoaController(this);
                 retorno = pessoaController.cadastrarPessoaPadrao(pessoaBean, confirmarSenha);
                 Toast.makeText(this,retorno,Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(this, LoginActivity.class);
+//                startActivity(intent);
+                finish();
 
             }catch (ErrorException e){
                 retorno = e.getMessage();

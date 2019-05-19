@@ -11,6 +11,7 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.mod
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.CondicaoEnum;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.Filtro;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.Seed.PapelSeed;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.StringUtils;
 
 import java.util.List;
 
@@ -41,6 +42,9 @@ public class PessoaController {
 
     public String cadastrarPessoaPadrao(PessoaBean pessoaBean, String confirmarSenha) throws ErrorException {
 
+        // TODO: faltol isso aqui itamar
+        if(StringUtils.naoTemValor(confirmarSenha) || StringUtils.naoTemValor(pessoaBean.getSenha())) throw new ErrorException("Senha é um campo obrigatório");
+
         if((pessoaBean.getSenha().equals(confirmarSenha)) == false){
             throw new ErrorException("As senhas não conferem.");
         }else{
@@ -52,7 +56,9 @@ public class PessoaController {
             //definindo o papel para a pessoa cadastrando anteriormente.
             PessoaPapelBean pessoaPapelBean = new PessoaPapelBean();
             pessoaPapelBean.setPessoaId(pessoaBean.getId());
-            pessoaPapelBean.setPapelId(PapelSeed.ADMIN);
+
+            // TODO: Colocou como papel padrao admin sendo que e funcionario ai fui fazer um if e fiquei um tempao para acha isso kkkkk
+            pessoaPapelBean.setPapelId(PapelSeed.FUNCIONARIO);
 
             PessoaPapelDAO pessoaPapelDAO = new PessoaPapelDAO(context);
             pessoaPapelBean = pessoaPapelDAO.inserir(pessoaPapelBean);

@@ -9,7 +9,8 @@ import java.util.Date;
 public class DateUtils {
 
 	public static final String FORMAT_DATE = "dd/MM/yyyy";
-	public static final String FORMAT_HOUR = "HH:mm:ss";
+	public static final String FORMAT_HOUR = "HH:mm";
+	public static final String FORMAT_HOUR_NULL = "--:--";
 
 	public static String format(Date data) {
 		return format(data, FORMAT_DATE);

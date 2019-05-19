@@ -13,6 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".view.UsuarioListActivity"
+            android:label="@string/title_activity_usuarios_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".view.Dashboard2Activity"
+            android:label="@string/title_activity_dashboard2"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.CadastroActivity" />
         <activity android:name=".view.DashobardActivity" />
         <activity android:name=".view.LoginActivity">
