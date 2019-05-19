@@ -2,6 +2,8 @@ package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.vi
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,7 +14,7 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.con
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.ConfiguracaoGeralBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PapelBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaBean;
-import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.dao.ErrorException;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.erro.ErrorException;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.StringUtils;
 
 public class DashobardActivity extends AppCompatActivity {
@@ -20,6 +22,7 @@ public class DashobardActivity extends AppCompatActivity {
     TextView txtNome, txtPapel;
     PessoaBean pessoaLogada;
     PapelBean papelBean;
+    Button btnPonto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +38,17 @@ public class DashobardActivity extends AppCompatActivity {
             txtNome.setText(pessoaLogada.getNome());
             txtPapel.setText(papelBean.getDescricao());
 
+            btnPonto = findViewById(R.id.btnPonto);
+
             mostrarBundle();
         } catch (ErrorException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void onClick(View view){
+        if (view == btnPonto){
+            //registrar ponto
         }
     }
 
@@ -45,7 +56,6 @@ public class DashobardActivity extends AppCompatActivity {
 
         ConfiguracaoGeralController configuracaoGeralController = new ConfiguracaoGeralController(this);
         ConfiguracaoGeralBean configuracaoGeralBean = configuracaoGeralController.busca();
-
 
         PessoaController pessoaController = new PessoaController(this);
         pessoaLogada = pessoaController.getDadosPessoaLogada(configuracaoGeralBean.getUsuarioLogadoId());

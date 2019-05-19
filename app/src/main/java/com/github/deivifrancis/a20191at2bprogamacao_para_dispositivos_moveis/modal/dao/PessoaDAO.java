@@ -5,15 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.ArrayAdapter;
 
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.erro.ErrorException;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.CondicaoEnum;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.ConnectionDB;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.Filtro;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.DateUtils;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +65,7 @@ public class PessoaDAO extends ConnectionDB {
         dados.put("cidade",pessoaBean.getCidade());
         dados.put("estado",pessoaBean.getEstado());
         try {
-            db.update(TABELA,dados,"_id = ?", new String[] {String.valueOf(pessoaBean.getId())});
+            db.update(TABELA,dados,"_id "+CondicaoEnum.EQUALS.get()+" ?", new String[] {String.valueOf(pessoaBean.getId())});
         }catch (SQLException e){
             throw new ErrorException("Erro ao atualizar Pessoa.",e);
         }
@@ -86,8 +85,6 @@ public class PessoaDAO extends ConnectionDB {
         List<PessoaBean> pessoaBeans = new ArrayList<PessoaBean>();
 
         Cursor cursor = db.rawQuery("SELECT * FROM "+TABELA + " WHERE 1 "+CondicaoEnum.EQUALS.get()+" 1 " + filtro.criarCondicao(), filtro.criarParametros());
-
-        // and usuario = ? and senha = ?
 
         if (cursor.getCount() > 0){
             cursor.moveToFirst();

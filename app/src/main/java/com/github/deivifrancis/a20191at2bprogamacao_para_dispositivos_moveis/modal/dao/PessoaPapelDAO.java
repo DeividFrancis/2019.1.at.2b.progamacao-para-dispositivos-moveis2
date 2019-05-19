@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.erro.ErrorException;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaPapelBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.CondicaoEnum;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.ConnectionDB;
@@ -45,7 +46,7 @@ public class PessoaPapelDAO extends ConnectionDB {
         dados.put("pessoa_id",pessoaPapelBean.getPessoaId());
         dados.put("papel_id",pessoaPapelBean.getPapelId());
         try {
-            db.update(TABELA,dados," _id = ?",new String[] {String.valueOf(pessoaPapelBean.getId())});
+            db.update(TABELA,dados," _id "+CondicaoEnum.EQUALS.get()+" ?",new String[] {String.valueOf(pessoaPapelBean.getId())});
         }catch (SQLException e){
             throw new ErrorException("Erro ao atualizar o papel da pessoa.",e);
         }
@@ -81,9 +82,8 @@ public class PessoaPapelDAO extends ConnectionDB {
     }
 
     public void deletar(Integer id){
-        db.delete(TABELA," _id = ?",new String[] {String.valueOf(id)});
+        db.delete(TABELA," _id "+CondicaoEnum.EQUALS.get()+" ?",new String[] {String.valueOf(id)});
     }
-
 
     public void fundir(PessoaPapelBean pessoaPapelBean) throws ErrorException {
         try {

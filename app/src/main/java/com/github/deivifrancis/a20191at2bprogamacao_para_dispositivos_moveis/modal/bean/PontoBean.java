@@ -4,24 +4,38 @@ import java.util.Date;
 
 public class PontoBean {
 
-    Integer id, pessoaId;
-    Date data;
-    String hora01,hora02,hora03,hora04,hora05,hora06,hora07,hora08,hora09,hora10;
+    private Integer id;
+    private Integer pessoaId;
+    private Date data;
+    private String hora01;
+    private String hora02;
+    private String hora03;
+    private String hora04;
+    private String hora05;
+    private String hora06;
+    private String hora07;
+    private String hora08;
+    private String hora09;
+    private String hora10;
 
     public PontoBean(){
-        this.id = getId();
-        this.data = getData();
-        this.pessoaId = getPessoaId();
-        this.hora01 = getHora01();
-        this.hora02 = getHora02();
-        this.hora03 = getHora03();
-        this.hora04 = getHora04();
-        this.hora05 = getHora05();
-        this.hora06 = getHora06();
-        this.hora07 = getHora07();
-        this.hora08 = getHora08();
-        this.hora09 = getHora09();
-        this.hora10 = getHora10();
+
+    }
+
+    public PontoBean(Integer id, Integer pessoaId, Date data, String hora01, String hora02, String hora03, String hora04, String hora05, String hora06, String hora07, String hora08, String hora09, String hora10) {
+        this.id = id;
+        this.pessoaId = pessoaId;
+        this.data = data;
+        this.hora01 = hora01;
+        this.hora02 = hora02;
+        this.hora03 = hora03;
+        this.hora04 = hora04;
+        this.hora05 = hora05;
+        this.hora06 = hora06;
+        this.hora07 = hora07;
+        this.hora08 = hora08;
+        this.hora09 = hora09;
+        this.hora10 = hora10;
     }
 
     public Integer getId() {
@@ -30,6 +44,14 @@ public class PontoBean {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getPessoaId() {
+        return pessoaId;
+    }
+
+    public void setPessoaId(Integer pessoaId) {
+        this.pessoaId = pessoaId;
     }
 
     public Date getData() {
@@ -118,14 +140,6 @@ public class PontoBean {
 
     public void setHora10(String hora10) {
         this.hora10 = hora10;
-    }
-
-    public Integer getPessoaId() {
-        return pessoaId;
-    }
-
-    public void setPessoaId(Integer pessoaId) {
-        this.pessoaId = pessoaId;
     }
 }
 

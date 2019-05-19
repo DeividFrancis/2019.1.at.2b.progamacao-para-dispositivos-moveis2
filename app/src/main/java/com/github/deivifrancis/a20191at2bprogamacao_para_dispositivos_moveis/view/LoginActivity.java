@@ -15,10 +15,9 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.con
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PessoaController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.ConfiguracaoGeralBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaBean;
-import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.dao.ErrorException;
-import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.dd.AppDD;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.erro.ErrorException;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.Seed.AppSeed;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.DateUtils;
-import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.DebugUtils;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.StringUtils;
 
 import java.text.ParseException;
@@ -109,8 +108,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void iniciarDD() throws ErrorException {
-       AppDD appDD = new AppDD(this);
-       appDD.cadastrarPorPadrao();
+       AppSeed appSeed = new AppSeed(this);
+       appSeed.cadastrarPorPadrao();
     }
 
     public void validarLembrarSenhaECarregarBundle() throws ErrorException, ParseException {

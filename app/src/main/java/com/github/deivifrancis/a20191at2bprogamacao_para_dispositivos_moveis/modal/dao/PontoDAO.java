@@ -6,12 +6,13 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaBean;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.erro.ErrorException;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PontoBean;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.CondicaoEnum;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.ConnectionDB;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.Filtro;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.DateUtils;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +68,7 @@ public class PontoDAO extends ConnectionDB {
         dados.put("hora09",pontoBean.getHora09());
         dados.put("hora10",pontoBean.getHora10());
         try {
-            db.update(TABELA,dados, "_id = ?", new String[] {String.valueOf(pontoBean.getId())});
+            db.update(TABELA,dados, "_id "+CondicaoEnum.EQUALS.get()+" ?", new String[] {String.valueOf(pontoBean.getId())});
         }catch (SQLException e){
             throw new ErrorException("Erro ao atualizar o seu ponto.",e);
         }
@@ -75,40 +76,24 @@ public class PontoDAO extends ConnectionDB {
         return pontoBean;
     }
 
-    public PontoBean buscar(Integer id) throws ParseException, ErrorException {
+    public PontoBean buscarId(Integer id) throws ErrorException {
         PontoBean pontoBean = null;
+        Filtro filtro = new Filtro();
+        filtro.adicionar("_id", CondicaoEnum.EQUALS, id);
+        List<PontoBean> lista = buscar(filtro);
+        pontoBean =  lista.get(0);
 
-        Cursor cursor = db.rawQuery("SELECT * FROM "+TABELA+" WHERE _id = ?",new String[] {String.valueOf(id)});
-
-        if (cursor.getCount() > 0){
-            cursor.moveToFirst();
-            do {
-                pontoBean = new PontoBean();
-                pontoBean.setId(cursor.getInt(0));
-                pontoBean.setPessoaId(cursor.getInt(1));
-                pontoBean.setData(DateUtils.parse(cursor.getString(2)));
-                pontoBean.setHora01(cursor.getString(3));
-                pontoBean.setHora02(cursor.getString(4));
-                pontoBean.setHora03(cursor.getString(5));
-                pontoBean.setHora04(cursor.getString(6));
-                pontoBean.setHora05(cursor.getString(7));
-                pontoBean.setHora06(cursor.getString(8));
-                pontoBean.setHora07(cursor.getString(9));
-                pontoBean.setHora08(cursor.getString(10));
-                pontoBean.setHora09(cursor.getString(11));
-                pontoBean.setHora10(cursor.getString(12));
-            }while (cursor.moveToNext());
-        }else{
-            throw new ErrorException("Nenhum um registro de ponto foi encontrado.");
-        }
-
-        return pontoBean;
+        return  pontoBean;
     }
 
-    public List<PontoBean> listarTodos() throws ErrorException, ParseException {
+    public void consultar(){
+        Filtro filtro = new Filtro();
+    }
+
+    public List<PontoBean> buscar(Filtro filtro) throws ErrorException {
         List<PontoBean> pontoBeans = new ArrayList<>();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM "+ TABELA,null);
+        Cursor cursor = db.rawQuery("SELECT * FROM "+TABELA + " WHERE 1 "+CondicaoEnum.EQUALS.get()+" 1 " + filtro.criarCondicao(), filtro.criarParametros());
 
         if (cursor.getCount() > 0){
             cursor.moveToFirst();
@@ -137,11 +122,16 @@ public class PontoDAO extends ConnectionDB {
         return pontoBeans;
     }
 
-    public void deletar(Integer id){
-        db.delete(TABELA," _id = ?",new String[] {String.valueOf(id)});
+    public void fundir(PontoBean pontoBean) throws ErrorException {
+        try {
+            buscarId(pontoBean.getId());
+            atualizar(pontoBean);
+        }catch (ErrorException e){
+            inserir(pontoBean);
+        }
     }
 
-    //criar uma metódo para listarConlunas();
-
-
+    public void deletar(Integer id){
+        db.delete(TABELA," _id "+CondicaoEnum.EQUALS.get()+" ?",new String[] {String.valueOf(id)});
+    }
 }
