@@ -133,7 +133,8 @@
                 android:id="@+id/edtEndereco"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="text"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/txtCidade"
@@ -147,7 +148,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="text" />
+                android:inputType="text"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/txtEstado"
@@ -161,7 +163,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="text" />
+                android:inputType="text"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/txtSenha"
