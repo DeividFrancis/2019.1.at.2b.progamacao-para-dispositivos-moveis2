@@ -1,6 +1,8 @@
 package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -66,7 +68,8 @@ public class LoginActivity extends AppCompatActivity {
                     fazerLogin(usuario, senhaMD5);
                     break;
                 case R.id.btnRecuperarSenha:
-                    new RecuperarSenhaDialog(this).show();
+//                    new RecuperarSenhaDialog(this).show();
+                    recuperarSenhaAlertDialog();
                     break;
                 case R.id.btnCadastre:
                     startActivity(new Intent(this, CadastroActivity.class));
@@ -76,6 +79,35 @@ public class LoginActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void recuperarSenhaAlertDialog() {
+        AlertDialog builder = new AlertDialog.Builder(LoginActivity.this).create();
+        builder.setTitle("Recuperar senha");
+        builder.setMessage("Informe seu email que iremos enviar sua nova senha.");
+        final EditText edtEmail = new EditText(this);
+        builder.setView(edtEmail);
+        builder.setButton(AlertDialog.BUTTON_POSITIVE, "Enviar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String email = (edtEmail.getText().toString());
+                String msg = "Sua senha foi enviada para o email: " + email + "                                ";
+                msg += "DEBUG: Sua nova senha é: ";
+
+                try {
+                    //pessoa controller resetarSenha(email)
+                    PessoaController pessoaController = new PessoaController(getApplicationContext());
+                    PessoaBean pessoaBean = pessoaController.resetarSenha(email);
+
+                    Toast.makeText(getApplicationContext(), msg + pessoaBean.getSenha(), Toast.LENGTH_LONG).show();
+                } catch (ErrorException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),"E-mail não encontrado, por favor verifique.",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        builder.show();
     }
 
     public void fazerLogin(String usuario, String senhaMd5) throws ErrorException {
