@@ -118,8 +118,12 @@ public class PessoaDAO extends ConnectionDB {
         return pessoaBeans;
     }
 
-    public void deletar(Integer id){
-        db.delete(TABELA,"_id "+ CondicaoEnum.EQUALS +" ?", new String[] {String.valueOf(id)});
+    public void deletar(Integer id) throws ErrorException {
+        try {
+            db.delete(TABELA,"_id = ?", new String[] {String.valueOf(id)});
+        }catch (Exception e){
+            throw new ErrorException("Erro ao deletar a linha " + id  + " " + e.getMessage(), e );
+        }
     }
 
     public void fundir(PessoaBean pessoaBean) throws ErrorException {

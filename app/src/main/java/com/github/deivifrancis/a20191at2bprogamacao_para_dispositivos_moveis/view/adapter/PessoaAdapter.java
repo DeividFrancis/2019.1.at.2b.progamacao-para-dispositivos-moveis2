@@ -1,18 +1,20 @@
 package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.view.adapter;
 
 import android.content.Context;
-import android.media.Image;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.R;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaBean;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.OsUtils;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.view.CadastroActivity;
 
 import java.util.List;
 
@@ -67,16 +69,29 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
             txtNome = itemView.findViewById(R.id.txtNome);
             txtPapel = itemView.findViewById(R.id.txtPapel);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(context, "Voce clicou", Toast.LENGTH_LONG).show();
-                }
-            });
+
+
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    PessoaBean pessoaBean = pessoaList.get(getLayoutPosition());
+//
+//                    Intent i = new Intent(context, CadastroActivity.class);
+//                    i.putExtra("pessoa_id", pessoaBean.getId());
+//                    ((AppCompatActivity) context).startActivityForResult(i, 0);
+//                }
+//            });
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
+                    OsUtils.vibrar(context);
+
+                    PessoaBean pessoaBean = pessoaList.get(getLayoutPosition());
+
+                    Intent i = new Intent(context, CadastroActivity.class);
+                    i.putExtra("pessoa_id", pessoaBean.getId());
+                    ((AppCompatActivity) context).startActivityForResult(i, 0);
                     return false;
                 }
             });

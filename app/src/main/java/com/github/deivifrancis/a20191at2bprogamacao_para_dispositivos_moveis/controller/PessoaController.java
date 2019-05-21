@@ -40,9 +40,14 @@ public class PessoaController {
 
     }
 
+    public String atualizar(PessoaBean pessoaBean) throws ErrorException {
+        PessoaDAO pessoaDAO = new PessoaDAO(context);
+        pessoaDAO.atualizar(pessoaBean);
+        return "Pessoa atulizada com sucesso!";
+    }
+
     public String cadastrarPessoaPadrao(PessoaBean pessoaBean, String confirmarSenha) throws ErrorException {
 
-        // TODO: faltol isso aqui itamar
         if(StringUtils.naoTemValor(confirmarSenha) || StringUtils.naoTemValor(pessoaBean.getSenha())) throw new ErrorException("Senha é um campo obrigatório");
 
         if((pessoaBean.getSenha().equals(confirmarSenha)) == false){
@@ -57,7 +62,6 @@ public class PessoaController {
             PessoaPapelBean pessoaPapelBean = new PessoaPapelBean();
             pessoaPapelBean.setPessoaId(pessoaBean.getId());
 
-            // TODO: Colocou como papel padrao admin sendo que e funcionario ai fui fazer um if e fiquei um tempao para acha isso kkkkk
             pessoaPapelBean.setPapelId(PapelSeed.FUNCIONARIO);
 
             PessoaPapelDAO pessoaPapelDAO = new PessoaPapelDAO(context);
@@ -88,5 +92,25 @@ public class PessoaController {
         }catch (ErrorException e){
             throw new ErrorException("Email não encontrado.", e);
         }
+    }
+
+    public List<PessoaBean> getTodos() throws ErrorException {
+        PessoaDAO pessoaDAO = new PessoaDAO(context);
+        return pessoaDAO.buscar(null);
+    }
+
+    public PessoaBean buscaId(Integer pessoaId) throws ErrorException {
+
+        PessoaDAO pessoaDAO = new PessoaDAO(context);
+        return pessoaDAO.buscarId(pessoaId);
+
+    }
+
+    public String deletar(Integer id) throws ErrorException {
+
+        PessoaDAO pessoaDAO = new PessoaDAO(context);
+        pessoaDAO.deletar(id);
+
+        return "Deletado com sucesso!";
     }
 }
