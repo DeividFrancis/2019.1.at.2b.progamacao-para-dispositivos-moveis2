@@ -13,6 +13,8 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.uti
 import java.util.Date;
 import java.util.List;
 
+//TODO deixar todos os controller com os DAOS como globais pra a classe
+
 public class PontoController {
 
     Context context;
@@ -50,7 +52,7 @@ public class PontoController {
             pontoBean = pontoList.get(0);
         } catch (ErrorException e) {
             pontoBean = new PontoBean();
-            pontoBean.setPessoaId(pessoaLogada.getId());
+            pontoBean.setPessoaBean(pessoaLogada);
             pontoBean.setData(data);
         }
 

@@ -11,6 +11,7 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.mod
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.CondicaoEnum;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.ConnectionDB;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.Filtro;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,8 @@ public class PessoaPapelDAO extends ConnectionDB {
         Long pessoaPapelId = null;
 
         dados = new ContentValues();
-        dados.put("pessoa_id",pessoaPapelBean.getPessoaId());
-        dados.put("papel_id",pessoaPapelBean.getPapelId());
+        dados.put("pessoa_id",pessoaPapelBean.getPessoaBean().getId());
+        dados.put("papel_id",pessoaPapelBean.getPapelBean().getId());
         try {
             pessoaPapelId = db.insertOrThrow(TABELA,null,dados);
         }catch (SQLException e){
@@ -43,8 +44,8 @@ public class PessoaPapelDAO extends ConnectionDB {
 
     public PessoaPapelBean atualizar(PessoaPapelBean pessoaPapelBean) throws ErrorException {
         dados = new ContentValues();
-        dados.put("pessoa_id",pessoaPapelBean.getPessoaId());
-        dados.put("papel_id",pessoaPapelBean.getPapelId());
+        dados.put("pessoa_id",pessoaPapelBean.getPessoaBean().getId());
+        dados.put("papel_id",pessoaPapelBean.getPapelBean().getId());
         try {
             db.update(TABELA,dados," _id "+CondicaoEnum.EQUALS.get()+" ?",new String[] {String.valueOf(pessoaPapelBean.getId())});
         }catch (SQLException e){
@@ -56,22 +57,62 @@ public class PessoaPapelDAO extends ConnectionDB {
 
     public PessoaPapelBean buscarId(Integer id) throws ErrorException {
         Filtro filtro = new Filtro();
-        filtro.adicionar("_id", CondicaoEnum.EQUALS, id);
+        filtro.adicionar("pepa._id", CondicaoEnum.EQUALS, id);
         return buscar(filtro).get(0);
     }
 
     public List<PessoaPapelBean> buscar(Filtro filtro) throws ErrorException {
         List<PessoaPapelBean> pessoaPapelBeans = new ArrayList<>();
 
-        Cursor cursor = db.rawQuery("SELECT _id, pessoa_id, papel_id FROM " + TABELA + " WHERE 1 "+ CondicaoEnum.EQUALS.get()+ " 1 " + filtro.criarCondicao(), filtro.criarParametros());
+        String condicoes = "";
+        String [] parametros = null;
+
+        if (filtro != null){
+            condicoes = filtro.criarCondicao();
+            parametros = filtro.criarParametros();
+        }
+
+        StringBuilder pessoaPapel = new StringBuilder();
+        pessoaPapel.append("    select                                                      ");
+        pessoaPapel.append("  		   pepa._id,                                            ");
+        pessoaPapel.append("  		   pepa.pessoa_id,                                      ");
+        pessoaPapel.append("  		   pepa.papel_id,                                       ");
+        pessoaPapel.append("  		   pes.nome,                                            ");
+        pessoaPapel.append("  		   pes.cpf,                                             ");
+        pessoaPapel.append("  		   pes.aniversario,                                     ");
+        pessoaPapel.append("  		   pes.logradouro,                                      ");
+        pessoaPapel.append("  		   pes.telefone,                                        ");
+        pessoaPapel.append("  		   pes.email,                                           ");
+        pessoaPapel.append("  		   pes.senha,                                           ");
+        pessoaPapel.append("  		   pes.numero,                                          ");
+        pessoaPapel.append("  		   pes.cidade,                                          ");
+        pessoaPapel.append("  		   pes.estado,                                          ");
+        pessoaPapel.append("  		   pap.descricao                                        ");
+        pessoaPapel.append("      from "+TABELA+" pepa                                      ");
+        pessoaPapel.append("      join pessoa pes on (pes._id = pepa.pessoa_id)               ");
+        pessoaPapel.append("      join papel pap on (pap._id = pepa.papel_id   )             ");
+        pessoaPapel.append("     where 1 = 1 "+condicoes                                     );
+
+        Cursor cursor = db.rawQuery(pessoaPapel.toString(), parametros);
 
         if (cursor.getCount() > 0 ){
             cursor.moveToFirst();
             do {
                 PessoaPapelBean pessoaPapelBean = new PessoaPapelBean();
                 pessoaPapelBean.setId(cursor.getInt(0));
-                pessoaPapelBean.setPessoaId(cursor.getInt(1));
-                pessoaPapelBean.setPapelId(cursor.getInt(2));
+                pessoaPapelBean.getPessoaBean().setId(cursor.getInt(1));
+                pessoaPapelBean.getPapelBean().setId(cursor.getInt(2));
+                pessoaPapelBean.getPessoaBean().setNome(cursor.getString(3));
+                pessoaPapelBean.getPessoaBean().setCpf(cursor.getString(4));
+                pessoaPapelBean.getPessoaBean().setAniversario(DateUtils.parse(cursor.getString(5)));
+                pessoaPapelBean.getPessoaBean().setLogradouro(cursor.getString(6));
+                pessoaPapelBean.getPessoaBean().setTelefone(cursor.getString(7));
+                pessoaPapelBean.getPessoaBean().setEmail(cursor.getString(8));
+                pessoaPapelBean.getPessoaBean().setSenha(cursor.getString(9));
+                pessoaPapelBean.getPessoaBean().setNumero(cursor.getString(10));
+                pessoaPapelBean.getPessoaBean().setCidade(cursor.getString(11));
+                pessoaPapelBean.getPessoaBean().setEstado(cursor.getString(12));
+                pessoaPapelBean.getPapelBean().setDescricao(cursor.getString(13));
                 pessoaPapelBeans.add(pessoaPapelBean);
             }while (cursor.moveToNext());
         }else {

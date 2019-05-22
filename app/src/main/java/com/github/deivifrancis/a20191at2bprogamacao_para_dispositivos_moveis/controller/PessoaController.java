@@ -19,24 +19,24 @@ public class PessoaController {
 
     Context context;
 
-    public PessoaController(Context context){
+    public PessoaController(Context context) {
         this.context = context;
     }
 
-    public PessoaBean fazerLogin(String usuario, String senhaMd5) throws ErrorException{
+    public PessoaBean fazerLogin(String usuario, String senhaMd5) throws ErrorException {
 
-       try {
-           PessoaDAO pessoaDAO = new PessoaDAO(context);
-           Filtro filtro = new Filtro();
-           filtro.adicionar("cpf", CondicaoEnum.EQUALS, usuario);
-           filtro.adicionar("senha", CondicaoEnum.EQUALS, senhaMd5);
+        try {
+            PessoaDAO pessoaDAO = new PessoaDAO(context);
+            Filtro filtro = new Filtro();
+            filtro.adicionar("cpf", CondicaoEnum.EQUALS, usuario);
+            filtro.adicionar("senha", CondicaoEnum.EQUALS, senhaMd5);
 
-           List<PessoaBean> pessoaLIsta = pessoaDAO.buscar(filtro);
-           return pessoaLIsta.get(0);
+            List<PessoaBean> pessoaLIsta = pessoaDAO.buscar(filtro);
+            return pessoaLIsta.get(0);
 
-       }catch (ErrorException e){
-           throw new ErrorException("Usuário ou senha inválidos!", e);
-       }
+        } catch (ErrorException e) {
+            throw new ErrorException("Usuário ou senha inválidos!", e);
+        }
 
     }
 
@@ -48,11 +48,24 @@ public class PessoaController {
 
     public String cadastrarPessoaPadrao(PessoaBean pessoaBean, String confirmarSenha) throws ErrorException {
 
-        if(StringUtils.naoTemValor(confirmarSenha) || StringUtils.naoTemValor(pessoaBean.getSenha())) throw new ErrorException("Senha é um campo obrigatório");
+        if (StringUtils.naoTemValor(confirmarSenha) || StringUtils.naoTemValor(pessoaBean.getSenha()))
+            throw new ErrorException("Senha é um campo obrigatório");
 
-        if((pessoaBean.getSenha().equals(confirmarSenha)) == false){
+        if (StringUtils.naoTemValor(pessoaBean.getCpf())) {
+            throw new ErrorException("Cpf é um campo obrigatório.");
+        }
+
+        if (existeDB("cfp", pessoaBean.getCpf())) {
+            throw new ErrorException("Cpf ja cadastrado");
+        }
+
+        if (existeDB("email", pessoaBean.getEmail())) {
+            throw new ErrorException("Email ja cadastrado");
+        }
+
+        if ((pessoaBean.getSenha().equals(confirmarSenha)) == false) {
             throw new ErrorException("As senhas não conferem.");
-        }else{
+        } else {
 
             //cadastro da pessoa.
             PessoaDAO pessoaDAO = new PessoaDAO(context);
@@ -60,15 +73,35 @@ public class PessoaController {
 
             //definindo o papel para a pessoa cadastrando anteriormente.
             PessoaPapelBean pessoaPapelBean = new PessoaPapelBean();
-            pessoaPapelBean.setPessoaId(pessoaBean.getId());
+            pessoaPapelBean.setPessoaBean(pessoaBean);
 
-            pessoaPapelBean.setPapelId(PapelSeed.FUNCIONARIO);
+            pessoaPapelBean.getPapelBean().setId(PapelSeed.FUNCIONARIO);
 
             PessoaPapelDAO pessoaPapelDAO = new PessoaPapelDAO(context);
             pessoaPapelBean = pessoaPapelDAO.inserir(pessoaPapelBean);
 
             return "Cadastrado com Sucesso!";
         }
+    }
+
+    private boolean existeDB(String coluna, String valor) {
+        boolean ret = true;
+
+        Filtro filtro = new Filtro();
+        filtro.adicionar(coluna, CondicaoEnum.EQUALS, valor);
+
+        PessoaDAO pessoaDAO = new PessoaDAO(context);
+        List<PessoaBean> pessoaBeans = null;
+        try {
+            pessoaBeans = pessoaDAO.buscar(filtro);
+        } catch (ErrorException e) {
+            ret = false;
+        }
+
+        if (pessoaBeans.size() > 0) ret = true;
+        else ret = false;
+
+        return ret;
     }
 
     public PessoaBean getDadosPessoaLogada(Integer usuarioLogadoId) throws ErrorException {
@@ -81,15 +114,15 @@ public class PessoaController {
             PessoaDAO pessoaDAO = new PessoaDAO(context);
             PessoaBean pessoaBean = new PessoaBean();
             Filtro filtro = new Filtro();
-            filtro.adicionar("email",CondicaoEnum.EQUALS,email);
+            filtro.adicionar("email", CondicaoEnum.EQUALS, email);
             List<PessoaBean> pessoaBeans = pessoaDAO.buscar(filtro);
 
             pessoaBean = pessoaBeans.get(0);
             pessoaBean.setSenha(PessoaSeed.RESETA_SENHA_PADRAO);
-            pessoaBean =  pessoaDAO.atualizar(pessoaBean);
+            pessoaBean = pessoaDAO.atualizar(pessoaBean);
 
             return pessoaBean;
-        }catch (ErrorException e){
+        } catch (ErrorException e) {
             throw new ErrorException("Email não encontrado.", e);
         }
     }

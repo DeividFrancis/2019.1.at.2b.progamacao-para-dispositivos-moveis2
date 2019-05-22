@@ -32,8 +32,8 @@ public class PessoaPapelController {
         pessoaDAO.buscar(filtroPessoa);
         papelDAO.buscar(filtroPapel);
 
-        pessoaPapelBean.setPessoaId(pessoaId);
-        pessoaPapelBean.setPapelId(papelId);
+        pessoaPapelBean.getPessoaBean().setId(pessoaId);
+        pessoaPapelBean.getPapelBean().setId(papelId);
         pessoaPapelDAO.inserir(pessoaPapelBean);
 
         }catch (ErrorException e){

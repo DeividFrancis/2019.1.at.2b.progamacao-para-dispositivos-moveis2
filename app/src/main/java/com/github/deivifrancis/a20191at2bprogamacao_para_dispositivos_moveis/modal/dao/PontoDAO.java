@@ -31,7 +31,7 @@ public class PontoDAO extends ConnectionDB {
         Long pontoId = null;
 
         dados = new ContentValues();
-        dados.put("pessoa_id",pontoBean.getPessoaId());
+        dados.put("pessoa_id",pontoBean.getPessoaBean().getId());
         dados.put("data", DateUtils.format(pontoBean.getData()));
         dados.put("hora01",pontoBean.getHora01());
         dados.put("hora02",pontoBean.getHora02());
@@ -55,7 +55,7 @@ public class PontoDAO extends ConnectionDB {
 
     public PontoBean atualizar(PontoBean pontoBean) throws ErrorException {
         dados = new ContentValues();
-        dados.put("pessoa_id",pontoBean.getPessoaId());
+        dados.put("pessoa_id",pontoBean.getPessoaBean().getId());
         dados.put("data", DateUtils.format(pontoBean.getData()));
         dados.put("hora01",pontoBean.getHora01());
         dados.put("hora02",pontoBean.getHora02());
@@ -80,7 +80,7 @@ public class PontoDAO extends ConnectionDB {
         if(id == null) throw new ErrorException("id esta vazio");
         PontoBean pontoBean = null;
         Filtro filtro = new Filtro();
-        filtro.adicionar("_id", CondicaoEnum.EQUALS, id);
+        filtro.adicionar("pon._id", CondicaoEnum.EQUALS, id);
         List<PontoBean> lista = buscar(filtro);
         pontoBean =  lista.get(0);
 
@@ -101,15 +101,44 @@ public class PontoDAO extends ConnectionDB {
             parametros = filtro.criarParametros();
         }
 
+        StringBuilder ponto = new StringBuilder();
+        ponto.append("    select                                                      ");
+        ponto.append("  		 pon._id,                                             ");
+        ponto.append("  		 pon.pessoa_id,                                       ");
+        ponto.append("  		 pon.data,                                            ");
+        ponto.append("  		 pon.hora01,                                          ");
+        ponto.append("  		 pon.hora02,                                          ");
+        ponto.append("  		 pon.hora03,                                          ");
+        ponto.append("  		 pon.hora04,                                          ");
+        ponto.append("  		 pon.hora05,                                          ");
+        ponto.append("  		 pon.hora06,                                          ");
+        ponto.append("  		 pon.hora07,                                          ");
+        ponto.append("  		 pon.hora08,                                          ");
+        ponto.append("  		 pon.hora09,                                          ");
+        ponto.append("  		 pon.hora10,                                          ");
+        ponto.append("  		 pes.nome,                                            ");
+        ponto.append("  		 pes.cpf,                                             ");
+        ponto.append("  		 pes.aniversario,                                     ");
+        ponto.append("  		 pes.logradouro,                                      ");
+        ponto.append("  		 pes.telefone,                                        ");
+        ponto.append("  		 pes.email,                                           ");
+        ponto.append("  		 pes.senha,                                           ");
+        ponto.append("  		 pes.numero,                                          ");
+        ponto.append("  		 pes.cidade,                                          ");
+        ponto.append("  		 pes.estado                                           ");
+        ponto.append("      from "+TABELA+" pon                                       ");
+        ponto.append("      join pessoa pes on pes._id = pon.pessoa_id                ");
+        ponto.append("     where 1 = 1 "+condicoes                                     );
 
-        Cursor cursor = db.rawQuery("SELECT * FROM "+TABELA + " WHERE 1 " +CondicaoEnum.EQUALS.get()+" 1 " + condicoes, parametros);
+        //TODO: FINALIZAR O PROCESSO DE JOIN E OBJETOS
+        Cursor cursor = db.rawQuery(ponto.toString(), parametros);
 
         if (cursor.getCount() > 0){
             cursor.moveToFirst();
             do {
                 PontoBean pontoBean = new PontoBean();
                 pontoBean.setId(cursor.getInt(0));
-                pontoBean.setPessoaId(cursor.getInt(1));
+                pontoBean.getPessoaBean().setId(cursor.getInt(1));
                 pontoBean.setData(DateUtils.parse(cursor.getString(2)));
                 pontoBean.setHora01(cursor.getString(3));
                 pontoBean.setHora02(cursor.getString(4));
@@ -121,6 +150,16 @@ public class PontoDAO extends ConnectionDB {
                 pontoBean.setHora08(cursor.getString(10));
                 pontoBean.setHora09(cursor.getString(11));
                 pontoBean.setHora10(cursor.getString(12));
+                pontoBean.getPessoaBean().setNome(cursor.getString(13));
+                pontoBean.getPessoaBean().setCpf(cursor.getString(14));
+                pontoBean.getPessoaBean().setAniversario(DateUtils.parse(cursor.getString(15)));
+                pontoBean.getPessoaBean().setLogradouro(cursor.getString(16));
+                pontoBean.getPessoaBean().setTelefone(cursor.getString(17));
+                pontoBean.getPessoaBean().setEmail(cursor.getString(18));
+                pontoBean.getPessoaBean().setSenha(cursor.getString(19));
+                pontoBean.getPessoaBean().setNumero(cursor.getString(20));
+                pontoBean.getPessoaBean().setCidade(cursor.getString(21));
+                pontoBean.getPessoaBean().setEstado(cursor.getString(22));
                 pontoBeans.add(pontoBean);
             }while (cursor.moveToNext());
 

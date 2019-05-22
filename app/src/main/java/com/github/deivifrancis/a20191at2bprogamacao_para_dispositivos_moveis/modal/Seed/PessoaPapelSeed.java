@@ -14,7 +14,11 @@ public class PessoaPapelSeed extends AbstractSeed {
 
     @Override
     public void preparar() {
-        adicionar(new PessoaPapelBean(1, PessoaSeed.ADMIN, PapelSeed.ADMIN));
+        PessoaPapelBean pessoaPapelBean = new PessoaPapelBean();
+        pessoaPapelBean.setId(1);
+        pessoaPapelBean.getPessoaBean().setId(PessoaSeed.ADMIN);
+        pessoaPapelBean.getPapelBean().setId(PapelSeed.ADMIN);
+        adicionar(pessoaPapelBean);
     }
 
     @Override

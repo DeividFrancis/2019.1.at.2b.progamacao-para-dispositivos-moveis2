@@ -65,10 +65,24 @@ public class PapelDAO extends ConnectionDB {
     }
 
     public List<PapelBean> buscar(Filtro filtro) throws ErrorException {
-
         List<PapelBean> papelBeans = new ArrayList<PapelBean>();
 
-        Cursor cursor = db.rawQuery("SELECT _id, descricao FROM " + TABELA + " WHERE 1 "+CondicaoEnum.EQUALS.get()+ " 1 " + filtro.criarCondicao(), filtro.criarParametros());
+        String condicoes = "";
+        String [] parametros = null;
+
+        if (filtro != null){
+            condicoes = filtro.criarCondicao();
+            parametros = filtro.criarParametros();
+        }
+
+        StringBuilder papel = new StringBuilder();
+        papel.append("    select                                                         ");
+        papel.append("  		 pap._id,                                                    ");
+        papel.append("  		 pap.descricao                                               ");
+        papel.append("      from "+TABELA+" pap                                              ");
+        papel.append("     where 1 = 1 "+condicoes                                        );
+
+        Cursor cursor = db.rawQuery(papel.toString(), parametros);
 
         if (cursor.getCount() > 0){
             cursor.moveToFirst();

@@ -75,7 +75,7 @@ public class PessoaDAO extends ConnectionDB {
     public PessoaBean buscarId(Integer id) throws ErrorException{
         PessoaBean pessoaBean = null;
         Filtro filtro = new Filtro();
-        filtro.adicionar("_id", CondicaoEnum.EQUALS,id);
+        filtro.adicionar("pes._id", CondicaoEnum.EQUALS,id);
         List<PessoaBean> lista = buscar(filtro);
         pessoaBean = lista.get(0);
         return pessoaBean;
@@ -84,15 +84,31 @@ public class PessoaDAO extends ConnectionDB {
     public List<PessoaBean> buscar(Filtro filtro) throws ErrorException{
         List<PessoaBean> pessoaBeans = new ArrayList<PessoaBean>();
 
-        String condicao = "";
+        String condicoes = "";
         String[] parametros = null;
 
         if(filtro != null){
-            condicao = filtro.criarCondicao();
+            condicoes = filtro.criarCondicao();
             parametros = filtro.criarParametros();
         }
 
-        Cursor cursor = db.rawQuery("SELECT * FROM "+TABELA + " WHERE 1 "+CondicaoEnum.EQUALS.get()+" 1 " + condicao, parametros);
+        StringBuilder pessoa = new StringBuilder();
+        pessoa.append("    select                                                          ");
+        pessoa.append("  		  pes._id,                                                     ");
+        pessoa.append("  		  pes.nome,                                                    ");
+        pessoa.append("  		  pes.cpf,                                                     ");
+        pessoa.append("  		  pes.aniversario,                                             ");
+        pessoa.append("  		  pes.logradouro,                                              ");
+        pessoa.append("  		  pes.telefone,                                                ");
+        pessoa.append("  		  pes.email,                                                   ");
+        pessoa.append("  		  pes.senha,                                                   ");
+        pessoa.append("  		  pes.numero,                                                  ");
+        pessoa.append("  		  pes.cidade,                                                  ");
+        pessoa.append("  		  pes.estado                                                   ");
+        pessoa.append("      from "+TABELA+" pes                                               ");
+        pessoa.append("  	where 1 = 1 "+condicoes                                         );
+
+        Cursor cursor = db.rawQuery(pessoa.toString(), parametros);
 
         if (cursor.getCount() > 0){
             cursor.moveToFirst();

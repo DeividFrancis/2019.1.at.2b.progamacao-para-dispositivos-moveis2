@@ -3,17 +3,17 @@ package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.mo
 public class PessoaPapelBean {
 
     private Integer id;
-    private Integer pessoaId;
-    private Integer papelId;
+    private PessoaBean pessoaBean;
+    private PapelBean papelBean;
 
     public PessoaPapelBean(){
 
     }
 
-    public PessoaPapelBean(Integer id, Integer pessoaId, Integer papelId) {
+    public PessoaPapelBean(Integer id, PessoaBean pessoaBean, PapelBean papelBean) {
         this.id = id;
-        this.pessoaId = pessoaId;
-        this.papelId = papelId;
+        this.pessoaBean = pessoaBean;
+        this.papelBean = papelBean;
     }
 
     public Integer getId() {
@@ -24,19 +24,21 @@ public class PessoaPapelBean {
         this.id = id;
     }
 
-    public Integer getPessoaId() {
-        return pessoaId;
+    public PessoaBean getPessoaBean() {
+        if(pessoaBean == null)  pessoaBean = new PessoaBean();
+        return pessoaBean;
     }
 
-    public void setPessoaId(Integer pessoaId) {
-        this.pessoaId = pessoaId;
+    public void setPessoaBean(PessoaBean pessoaBean) {
+        this.pessoaBean = pessoaBean;
     }
 
-    public Integer getPapelId() {
-        return papelId;
+    public PapelBean getPapelBean() {
+        if (papelBean == null) papelBean = new PapelBean();
+        return papelBean;
     }
 
-    public void setPapelId(Integer papelId) {
-        this.papelId = papelId;
+    public void setPapelBean(PapelBean papelBean) {
+        this.papelBean = papelBean;
     }
 }

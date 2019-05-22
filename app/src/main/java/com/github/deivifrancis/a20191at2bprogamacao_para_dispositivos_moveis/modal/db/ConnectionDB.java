@@ -13,8 +13,6 @@ public class ConnectionDB extends SQLiteOpenHelper {
         super(context, banco, null, versao);
     }
 
-    //ver pra criar um crud abstract, para as filhas serem obrigadas a ter.
-    //também ver pra por as tabelas no metódo.
     @Override
     public void onCreate(SQLiteDatabase db) {
         StringBuilder pessoa = new StringBuilder();

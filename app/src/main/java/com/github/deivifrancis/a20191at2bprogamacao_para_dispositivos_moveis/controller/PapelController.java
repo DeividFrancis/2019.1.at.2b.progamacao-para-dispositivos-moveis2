@@ -26,8 +26,6 @@ public class PapelController {
 
         PessoaPapelBean pessoaPapelBean = pessoaPapelDAO.buscar(filtro).get(0);
 
-        PapelDAO papelDAO = new PapelDAO(context);
-
-        return papelDAO.buscarId(pessoaPapelBean.getPapelId());
+        return pessoaPapelBean.getPapelBean();
     }
 }

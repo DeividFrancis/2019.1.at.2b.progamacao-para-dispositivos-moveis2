@@ -5,7 +5,7 @@ import java.util.Date;
 public class PontoBean {
 
     private Integer id;
-    private Integer pessoaId;
+    private PessoaBean pessoaBean;
     private Date data;
     private String hora01;
     private String hora02;
@@ -22,9 +22,9 @@ public class PontoBean {
 
     }
 
-    public PontoBean(Integer id, Integer pessoaId, Date data, String hora01, String hora02, String hora03, String hora04, String hora05, String hora06, String hora07, String hora08, String hora09, String hora10) {
+    public PontoBean(Integer id, PessoaBean pessoaBean, Date data, String hora01, String hora02, String hora03, String hora04, String hora05, String hora06, String hora07, String hora08, String hora09, String hora10) {
         this.id = id;
-        this.pessoaId = pessoaId;
+        this.pessoaBean = pessoaBean;
         this.data = data;
         this.hora01 = hora01;
         this.hora02 = hora02;
@@ -46,12 +46,13 @@ public class PontoBean {
         this.id = id;
     }
 
-    public Integer getPessoaId() {
-        return pessoaId;
+    public PessoaBean getPessoaBean() {
+        if(pessoaBean == null) pessoaBean = new PessoaBean();
+        return pessoaBean;
     }
 
-    public void setPessoaId(Integer pessoaId) {
-        this.pessoaId = pessoaId;
+    public void setPessoaBean(PessoaBean pessoaBean) {
+        this.pessoaBean = pessoaBean;
     }
 
     public Date getData() {
