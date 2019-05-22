@@ -10,6 +10,8 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.mod
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.CondicaoEnum;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.Filtro;
 
+import java.util.List;
+
 public class PapelController {
 
     Context context;
@@ -27,5 +29,10 @@ public class PapelController {
         PessoaPapelBean pessoaPapelBean = pessoaPapelDAO.buscar(filtro).get(0);
 
         return pessoaPapelBean.getPapelBean();
+    }
+
+    public List<PapelBean> listarTodos() throws ErrorException {
+        PapelDAO papelDAO = new PapelDAO(context);
+        return papelDAO.buscar(null);
     }
 }

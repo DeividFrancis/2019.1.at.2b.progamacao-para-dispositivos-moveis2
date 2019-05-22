@@ -46,7 +46,7 @@ public class PessoaController {
         return "Pessoa atulizada com sucesso!";
     }
 
-    public String cadastrarPessoaPadrao(PessoaBean pessoaBean, String confirmarSenha) throws ErrorException {
+    public String cadastrarPessoaPadrao(PessoaBean pessoaBean, String confirmarSenha, Integer papelId) throws ErrorException {
 
         if (StringUtils.naoTemValor(confirmarSenha) || StringUtils.naoTemValor(pessoaBean.getSenha()))
             throw new ErrorException("Senha é um campo obrigatório");
@@ -75,7 +75,7 @@ public class PessoaController {
             PessoaPapelBean pessoaPapelBean = new PessoaPapelBean();
             pessoaPapelBean.setPessoaBean(pessoaBean);
 
-            pessoaPapelBean.getPapelBean().setId(PapelSeed.FUNCIONARIO);
+            pessoaPapelBean.getPapelBean().setId(papelId);
 
             PessoaPapelDAO pessoaPapelDAO = new PessoaPapelDAO(context);
             pessoaPapelBean = pessoaPapelDAO.inserir(pessoaPapelBean);

@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/ic_person_24dp" />
 
     <TextView
-        android:id="@+id/txtNome"
+        android:id="@+id/txtNomeUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -34,6 +34,6 @@
         android:text="(FUNCIONARIO)"
         android:textAppearance="@style/TextAppearance.Design.HelperText"
         app:layout_constraintStart_toEndOf="@+id/imgFotoPerfil"
-        app:layout_constraintTop_toBottomOf="@+id/txtNome" />
+        app:layout_constraintTop_toBottomOf="@+id/txtNomeUsuario" />
 
 </android.support.constraint.ConstraintLayout>

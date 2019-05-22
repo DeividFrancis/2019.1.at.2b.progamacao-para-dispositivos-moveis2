@@ -15,4 +15,5 @@
     </string>
     <string name="title_activity_dashboard2">Dashboard2</string>
     <string name="title_activity_usuarios_list">UsuariosListActivity</string>
+    <string name="title_activity_exemplo">Exemplo</string>
 </resources>

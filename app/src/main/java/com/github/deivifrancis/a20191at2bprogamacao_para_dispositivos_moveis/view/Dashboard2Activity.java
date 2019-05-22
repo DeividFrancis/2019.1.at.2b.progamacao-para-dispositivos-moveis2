@@ -42,6 +42,7 @@ public class Dashboard2Activity extends AppCompatActivityDefault {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_dashboard2);
             Toolbar toolbar = findViewById(R.id.toolbar);
+            toolbar.setTitle("");
             setSupportActionBar(toolbar);
 
             txtNome = findViewById(R.id.txtNomeUsuario);
@@ -64,6 +65,7 @@ public class Dashboard2Activity extends AppCompatActivityDefault {
 
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
     }
 

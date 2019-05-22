@@ -141,6 +141,19 @@
             android:visibility="gone" />
 
         <TextView
+            android:id="@+id/txtPapel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Papel" />
+
+        <Spinner
+            android:id="@+id/spiPapel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog" />
+
+        <TextView
             android:id="@+id/txtSenha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

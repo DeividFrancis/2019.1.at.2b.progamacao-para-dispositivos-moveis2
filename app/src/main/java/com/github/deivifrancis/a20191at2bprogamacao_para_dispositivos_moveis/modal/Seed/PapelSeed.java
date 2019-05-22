@@ -17,8 +17,8 @@ public class PapelSeed extends AbstractSeed {
 
     @Override
     public void preparar() {
-        adicionar(new PapelBean(ADMIN,"ADMIN"));
-        adicionar(new PapelBean(FUNCIONARIO,"FUNCIONARIO"));
+        adicionar(new PapelBean(ADMIN,"Administrador"));
+        adicionar(new PapelBean(FUNCIONARIO,"Funcionário"));
     }
 
     @Override

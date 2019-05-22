@@ -66,7 +66,7 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
             super(itemView);
 
             imgFotoPerfil = itemView.findViewById(R.id.imgFotoPerfil);
-            txtNome = itemView.findViewById(R.id.txtNome);
+            txtNome = itemView.findViewById(R.id.txtNomeUsuario);
             txtPapel = itemView.findViewById(R.id.txtPapel);
 
 
