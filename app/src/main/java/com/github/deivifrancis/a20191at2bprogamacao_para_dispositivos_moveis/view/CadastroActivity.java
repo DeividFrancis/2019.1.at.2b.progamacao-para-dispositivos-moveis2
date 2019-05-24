@@ -1,5 +1,6 @@
 package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.view;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -10,7 +11,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -18,15 +21,20 @@ import android.widget.Toast;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.R;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PapelController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PessoaController;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PessoaPapelController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PontoController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.erro.ErrorException;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PapelBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaBean;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaPapelBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.DateUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class CadastroActivity extends AppCompatActivity {
 
@@ -37,17 +45,18 @@ public class CadastroActivity extends AppCompatActivity {
 
     PessoaBean pessoaBean;
 
+
+    private List<Integer> papelIdList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Cadastro");
 
         try {
             loadSpinner();
-
 
             edtNome = findViewById(R.id.edtNome);
             edtEmail = findViewById(R.id.edtEmail);
@@ -60,6 +69,8 @@ public class CadastroActivity extends AppCompatActivity {
             edtSenha = findViewById(R.id.edtSenha);
             edtConfirmarSenha = findViewById(R.id.edtConfirmarSenha);
             spiPapel = findViewById(R.id.spiPapel);
+
+            DateUtils.datePickerSimple(CadastroActivity.this, edtAniversario);
 
             carregabundle();
             carregaCamposAlterar();
@@ -76,7 +87,11 @@ public class CadastroActivity extends AppCompatActivity {
         List<PapelBean> papelList = papelController.listarTodos();
 
         List<String> labelList = new ArrayList<>();
+        papelIdList = new ArrayList<>();
+        papelIdList.add(0);
+        labelList.add("Papel");
         for (PapelBean papelBean : papelList) {
+            papelIdList.add(papelBean.getId());
             labelList.add(papelBean.getDescricao());
         }
 
@@ -85,13 +100,32 @@ public class CadastroActivity extends AppCompatActivity {
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spiPapel.setAdapter(dataAdapter);
-
     }
 
-    // TODO terminar o resto dos campos
-    private void carregaCamposAlterar() {
-        if (pessoaBean != null) ;
+    private void carregaCamposAlterar() throws ErrorException {
+        if (pessoaBean == null || pessoaBean.getId() == null) return;
         edtNome.setText(pessoaBean.getNome());
+        edtEmail.setText(pessoaBean.getEmail());
+        edtAniversario.setText(DateUtils.format(pessoaBean.getAniversario()));
+        edtCidade.setText(pessoaBean.getCidade());
+        edtCpf.setText(pessoaBean.getCpf());
+        edtTelefone.setText(pessoaBean.getTelefone());
+        edtEstado.setText(pessoaBean.getEstado());
+        edtEndereco.setText(pessoaBean.getLogradouro());
+        edtSenha.setText(pessoaBean.getSenha());
+        edtConfirmarSenha.setText(pessoaBean.getSenha());
+
+        PessoaPapelController pessoaPapelController = new PessoaPapelController(this);
+        PessoaPapelBean pessoaPapelBean = pessoaPapelController.buscaPorPessoaId(pessoaBean.getId());
+
+        int position = 0;
+        for (int i = 0; i < papelIdList.size(); i++) {
+            if (papelIdList.get(i).equals(pessoaPapelBean.getPapelBean().getId())) {
+                position = i;
+            }
+        }
+
+        spiPapel.setSelection(position);
     }
 
     private void carregabundle() throws ErrorException {
@@ -124,16 +158,18 @@ public class CadastroActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         try {
             carregabundle();
-        } catch (ErrorException e) {
+
+            switch (item.getItemId()) {
+                case R.id.itemOK:
+                    cadastraOuAteraPessoa();
+                    break;
+                case R.id.itemDelete:
+                    deletarPessoa();
+                    break;
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
-        }
-        switch (item.getItemId()) {
-            case R.id.itemOK:
-                cadastraOuAteraPessoa();
-                break;
-            case R.id.itemDelete:
-                deletarPessoa();
-                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -179,18 +215,17 @@ public class CadastroActivity extends AppCompatActivity {
             pessoaBean.setEstado(edtEstado.getText().toString());
             pessoaBean.setSenha(edtSenha.getText().toString());
 //
-            Integer papelId = 0;
+            int position = spiPapel.getSelectedItemPosition();
+            Integer papelId = papelIdList.get(position);
 
             String confirmarSenha = edtConfirmarSenha.getText().toString();
             PessoaController pessoaController = new PessoaController(this);
-
 
             if (pessoaBean.getId() != null) {
                 retorno = pessoaController.atualizar(pessoaBean);
             } else {
                 retorno = pessoaController.cadastrarPessoaPadrao(pessoaBean, confirmarSenha, papelId);
             }
-
 
             Toast.makeText(this, retorno, Toast.LENGTH_LONG).show();
             finish();

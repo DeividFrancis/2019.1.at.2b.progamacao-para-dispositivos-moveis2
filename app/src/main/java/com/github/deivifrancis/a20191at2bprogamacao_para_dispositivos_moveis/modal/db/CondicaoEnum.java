@@ -4,6 +4,7 @@ public enum CondicaoEnum {
     EQUALS("="),
     GREAT(">"),
     LESS("<"),
+    LIKE("LIKE"),
     GREATOREQUALS(">="),
     LESSOREQUALS("<=");
 

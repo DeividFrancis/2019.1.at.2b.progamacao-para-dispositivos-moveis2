@@ -91,14 +91,14 @@ public class PessoaController {
         filtro.adicionar(coluna, CondicaoEnum.EQUALS, valor);
 
         PessoaDAO pessoaDAO = new PessoaDAO(context);
-        List<PessoaBean> pessoaBeans = null;
+        List<PessoaBean> pessoaList = null;
         try {
-            pessoaBeans = pessoaDAO.buscar(filtro);
+            pessoaList = pessoaDAO.buscar(filtro);
         } catch (ErrorException e) {
             ret = false;
         }
 
-        if (pessoaBeans.size() > 0) ret = true;
+        if (pessoaList != null && pessoaList.size() > 0) ret = true;
         else ret = false;
 
         return ret;

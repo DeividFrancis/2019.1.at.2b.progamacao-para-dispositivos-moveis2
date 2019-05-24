@@ -85,4 +85,10 @@ public class PontoController {
 
         return pontoBean;
     }
+
+    public PontoBean atualizaPonto(PontoBean pontoBean) throws ErrorException {
+
+        PontoDAO pontoDAO = new PontoDAO(context);
+        return pontoDAO.atualizar(pontoBean);
+    }
 }

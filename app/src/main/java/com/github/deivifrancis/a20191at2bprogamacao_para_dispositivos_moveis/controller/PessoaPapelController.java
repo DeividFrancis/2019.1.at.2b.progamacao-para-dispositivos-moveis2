@@ -9,6 +9,9 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.mod
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.dao.PessoaPapelDAO;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.CondicaoEnum;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.Filtro;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.StringUtils;
+
+import java.util.List;
 
 public class PessoaPapelController {
 
@@ -39,5 +42,30 @@ public class PessoaPapelController {
         }catch (ErrorException e){
             throw new ErrorException("Erro ao cadastrar papel para uma pessoa 2");
         }
+    }
+
+    public PessoaPapelBean buscaPorPessoaId(Integer id) throws ErrorException {
+
+        Filtro filtro = new Filtro();
+        filtro.adicionar("pepa.pessoa_id", CondicaoEnum.EQUALS, id);
+
+        PessoaPapelDAO pessoaPapelDAO = new PessoaPapelDAO(context);
+        return pessoaPapelDAO.buscar(filtro).get(0);
+    }
+
+    public List<PessoaPapelBean> buscaTodos() throws ErrorException {
+        PessoaPapelDAO pessoaPapelDAO = new PessoaPapelDAO(context);
+        return pessoaPapelDAO.buscar(null);
+    }
+
+    public List<PessoaPapelBean> buscarNome(String nome) throws ErrorException {
+        PessoaPapelDAO pessoaPapelDAO = new PessoaPapelDAO(context);
+
+        Filtro filtro = null;
+        if(StringUtils.naoTemValor(nome) == false){
+            filtro = new Filtro();
+            filtro.adicionar("pes.nome", CondicaoEnum.LIKE, nome);
+        }
+        return pessoaPapelDAO.buscar(filtro);
     }
 }

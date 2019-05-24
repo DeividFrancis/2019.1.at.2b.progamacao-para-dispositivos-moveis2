@@ -72,28 +72,28 @@ public class PessoaPapelDAO extends ConnectionDB {
             parametros = filtro.criarParametros();
         }
 
-        StringBuilder pessoaPapel = new StringBuilder();
-        pessoaPapel.append("    select                                                      ");
-        pessoaPapel.append("  		   pepa._id,                                            ");
-        pessoaPapel.append("  		   pepa.pessoa_id,                                      ");
-        pessoaPapel.append("  		   pepa.papel_id,                                       ");
-        pessoaPapel.append("  		   pes.nome,                                            ");
-        pessoaPapel.append("  		   pes.cpf,                                             ");
-        pessoaPapel.append("  		   pes.aniversario,                                     ");
-        pessoaPapel.append("  		   pes.logradouro,                                      ");
-        pessoaPapel.append("  		   pes.telefone,                                        ");
-        pessoaPapel.append("  		   pes.email,                                           ");
-        pessoaPapel.append("  		   pes.senha,                                           ");
-        pessoaPapel.append("  		   pes.numero,                                          ");
-        pessoaPapel.append("  		   pes.cidade,                                          ");
-        pessoaPapel.append("  		   pes.estado,                                          ");
-        pessoaPapel.append("  		   pap.descricao                                        ");
-        pessoaPapel.append("      from "+TABELA+" pepa                                      ");
-        pessoaPapel.append("      join pessoa pes on (pes._id = pepa.pessoa_id)               ");
-        pessoaPapel.append("      join papel pap on (pap._id = pepa.papel_id   )             ");
-        pessoaPapel.append("     where 1 = 1 "+condicoes                                     );
+        StringBuilder pessoaPapelQuery = new StringBuilder();
+        pessoaPapelQuery.append("    select                                                      ");
+        pessoaPapelQuery.append("  		   pepa._id,                                            ");
+        pessoaPapelQuery.append("  		   pepa.pessoa_id,                                      ");
+        pessoaPapelQuery.append("  		   pepa.papel_id,                                       ");
+        pessoaPapelQuery.append("  		   pes.nome,                                            ");
+        pessoaPapelQuery.append("  		   pes.cpf,                                             ");
+        pessoaPapelQuery.append("  		   pes.aniversario,                                     ");
+        pessoaPapelQuery.append("  		   pes.logradouro,                                      ");
+        pessoaPapelQuery.append("  		   pes.telefone,                                        ");
+        pessoaPapelQuery.append("  		   pes.email,                                           ");
+        pessoaPapelQuery.append("  		   pes.senha,                                           ");
+        pessoaPapelQuery.append("  		   pes.numero,                                          ");
+        pessoaPapelQuery.append("  		   pes.cidade,                                          ");
+        pessoaPapelQuery.append("  		   pes.estado,                                          ");
+        pessoaPapelQuery.append("  		   pap.descricao                                        ");
+        pessoaPapelQuery.append("      from "+TABELA+" pepa                                      ");
+        pessoaPapelQuery.append("      join pessoa pes on (pes._id = pepa.pessoa_id)               ");
+        pessoaPapelQuery.append("      join papel pap on (pap._id = pepa.papel_id)             ");
+        pessoaPapelQuery.append("     where 1 = 1 "+condicoes                                     );
 
-        Cursor cursor = db.rawQuery(pessoaPapel.toString(), parametros);
+        Cursor cursor = db.rawQuery(pessoaPapelQuery.toString(), parametros);
 
         if (cursor.getCount() > 0 ){
             cursor.moveToFirst();

@@ -12,18 +12,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.R;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PapelBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaBean;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaPapelBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.OsUtils;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.view.CadastroActivity;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.view.Dashboard2Activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaViewHolder> {
 
     List<PessoaBean> pessoaList;
+    List<PapelBean> papelList;
 
-    public PessoaAdapter(List<PessoaBean> pessoaList){
-        this.pessoaList = pessoaList;
+    public PessoaAdapter(List<PessoaPapelBean> pessoaPapelList){
+        this.pessoaList = new ArrayList<>();
+        this.papelList = new ArrayList<>();
+
+        for(PessoaPapelBean pessoaPapelBean: pessoaPapelList){
+            pessoaList.add(pessoaPapelBean.getPessoaBean());
+            papelList.add(pessoaPapelBean.getPapelBean());
+        }
     }
 
 
@@ -44,9 +55,10 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
     public void onBindViewHolder(@NonNull PessoaViewHolder pessoaViewHolder, int i) {
         if(pessoaList != null && pessoaList.size() > 0){
             PessoaBean pessoaBean = pessoaList.get(i);
+            PapelBean papelBean = papelList.get(i);
 
             pessoaViewHolder.getTxtNome().setText(pessoaBean.getNome());
-            pessoaViewHolder.getTxtPapel().setText("Admin");
+            pessoaViewHolder.getTxtPapel().setText(papelBean.getDescricao());
 
         }
     }
@@ -71,16 +83,17 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
 
 
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    PessoaBean pessoaBean = pessoaList.get(getLayoutPosition());
-//
-//                    Intent i = new Intent(context, CadastroActivity.class);
-//                    i.putExtra("pessoa_id", pessoaBean.getId());
-//                    ((AppCompatActivity) context).startActivityForResult(i, 0);
-//                }
-//            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PessoaBean pessoaBean = pessoaList.get(getLayoutPosition());
+
+                    Intent i = new Intent(context, Dashboard2Activity.class);
+                    i.putExtra("pessoa_id", pessoaBean.getId());
+                    ((AppCompatActivity) context).startActivityForResult(i, 0);
+                    ((AppCompatActivity) context).finish();
+                }
+            });
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

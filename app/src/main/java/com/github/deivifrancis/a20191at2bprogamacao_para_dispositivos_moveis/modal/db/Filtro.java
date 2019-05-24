@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Filtro {
     List<String> colunaLista = new ArrayList<String>();
-    List<String> condicaoLista = new ArrayList<String>();
+    List<CondicaoEnum> condicaoLista = new ArrayList<CondicaoEnum>();
     List<Object> valorLista = new ArrayList<Object>();
 
     public String criarCondicao(){
@@ -16,8 +16,8 @@ public class Filtro {
 
         for (int i =0; i < colunaLista.size(); i++){
             String coluna = colunaLista.get(i);
-            String condicao = condicaoLista.get(i);
-            sb.append(" AND " + coluna + " " + condicao + " ?");
+            CondicaoEnum condicaoEnum = condicaoLista.get(i);
+            sb.append(" AND " + coluna + " " + condicaoEnum.get() + " ?");
         }
 
         return sb.toString();
@@ -34,6 +34,9 @@ public class Filtro {
                 objeto = objeto.toString();
             }
 
+            if(condicaoLista.get(i).equals(CondicaoEnum.LIKE)){
+                objeto = "%" + objeto + "%";
+            }
             array[i] = (String) objeto;
         }
 
@@ -42,7 +45,7 @@ public class Filtro {
 
     public void adicionar(String coluna, CondicaoEnum condicaoEnum, Object valor){
         colunaLista.add(coluna);
-        condicaoLista.add(condicaoEnum.get());
+        condicaoLista.add(condicaoEnum);
         valorLista.add(valor);
     }
 

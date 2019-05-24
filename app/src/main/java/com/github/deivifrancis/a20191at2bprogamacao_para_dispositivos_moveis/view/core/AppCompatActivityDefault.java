@@ -10,6 +10,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.R;
@@ -62,6 +64,8 @@ public class AppCompatActivityDefault extends AppCompatActivity {
             itemUsuarios.setVisible(false);
         }
 
+//        SearchView itemSearch = (SearchView) menu.findItem(R.id.itemSearch).getActionView();
+
         // Setar na tela
         return super.onCreateOptionsMenu(menu);
     }
@@ -74,6 +78,7 @@ public class AppCompatActivityDefault extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.itemUsuarios:
                 startActivity(new Intent(this, UsuarioListActivity.class));
+
             case R.id.itemConfig:
 
                 break;
