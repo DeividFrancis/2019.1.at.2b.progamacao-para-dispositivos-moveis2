@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -56,7 +57,9 @@ public class DateUtils {
         return dataObj;
     }
 
-    public static void datePickerSimple(final Context context, final EditText edtDate) {
+    public static void datePickerSimple(final Context context, final TextView edtDate) {
+        edtDate.setShowSoftInputOnFocus(false);
+
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override

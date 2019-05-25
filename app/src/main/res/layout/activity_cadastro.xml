@@ -19,6 +19,7 @@
 
         <Spinner
             android:id="@+id/spiPapel"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown" />
@@ -63,9 +64,9 @@
             android:id="@+id/edtAniversario"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clickable="true"
-            android:inputType="textNoSuggestions"
-            android:nextFocusForward="@+id/edtCpf" />
+            android:inputType="text"
+            android:nextFocusForward="@+id/edtCpf"
+            android:textIsSelectable="true" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout

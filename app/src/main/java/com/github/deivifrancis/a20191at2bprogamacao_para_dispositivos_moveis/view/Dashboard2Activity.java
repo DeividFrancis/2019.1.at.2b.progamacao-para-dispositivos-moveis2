@@ -104,6 +104,9 @@ public class Dashboard2Activity extends AppCompatActivityDefault {
     }
 
     private void prepararSwipeRefresh() {
+        swipeRefresh.setColorSchemeColors(
+                getResources().getColor(R.color.refresh_progress_1)
+        );
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -113,7 +116,7 @@ public class Dashboard2Activity extends AppCompatActivityDefault {
                         carregaPontoLista();
                         swipeRefresh.setRefreshing(false);
                     }
-                }, 3000);
+                }, 2000);
             }
         });
     }

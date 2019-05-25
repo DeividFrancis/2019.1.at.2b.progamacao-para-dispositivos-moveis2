@@ -21,6 +21,7 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.mod
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.erro.ErrorException;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.Seed.AppSeed;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.DateUtils;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.MascaraUtils;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.StringUtils;
 
 import java.text.ParseException;
@@ -42,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             iniciarDD();
 
             edtCpf = findViewById(R.id.edtCpf);
+            edtCpf.addTextChangedListener(MascaraUtils.mask(edtCpf, MascaraUtils.FORMAT_CPF));
             edtSenha = findViewById(R.id.edtSenha);
 
             btnEntrar = findViewById(R.id.btnEntrar);

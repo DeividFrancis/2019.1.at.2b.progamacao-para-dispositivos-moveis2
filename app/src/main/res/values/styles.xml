@@ -18,7 +18,14 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppCompat.TelaCheia" parent="Theme.AppCompat.NoActionBar">
-        <!--<item name="android:windowFullscreen">true</item>-->
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="ThemeEditTextLight">
+        <item name="colorControlNormal">@color/textAccentLight</item>
+        <item name="android:textColor">@color/textAccentLight</item>
+        <item name="android:textColorHint">@color/textAccentLight</item>
+        <item name="android:backgroundTint">@color/textAccentLight</item>
     </style>
 
 </resources>

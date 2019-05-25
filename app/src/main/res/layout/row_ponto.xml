@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="16dp">
+    android:background="?android:attr/selectableItemBackground"
+    android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
         android:id="@+id/txtDia"
@@ -14,6 +15,7 @@
         android:layout_marginBottom="8dp"
         android:text="01 de janeiro de 2019"
         android:textAppearance="@android:style/TextAppearance.Material.Title"
+        android:textColor="@color/textPrimary"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,8 +36,10 @@
             android:id="@+id/contentHora01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:orientation="horizontal">
+            android:layout_marginEnd="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="4dp">
 
             <ImageView
                 android:id="@+id/imgHora01"
@@ -60,8 +64,10 @@
             android:id="@+id/contentHora02"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:orientation="horizontal">
+            android:layout_marginEnd="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="4dp">
 
             <ImageView
                 android:id="@+id/imgHora02"
@@ -86,8 +92,10 @@
             android:id="@+id/contentHora03"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:orientation="horizontal">
+            android:layout_marginEnd="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="4dp">
 
             <ImageView
                 android:id="@+id/imgHora03"
@@ -112,8 +120,10 @@
             android:id="@+id/contentHora04"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:orientation="horizontal">
+            android:layout_marginEnd="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="4dp">
 
             <ImageView
                 android:id="@+id/imgHora04"

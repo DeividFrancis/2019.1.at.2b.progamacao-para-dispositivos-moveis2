@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -28,6 +29,7 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.mod
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaPapelBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.DateUtils;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.MascaraUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,9 +62,16 @@ public class CadastroActivity extends AppCompatActivity {
 
             edtNome = findViewById(R.id.edtNome);
             edtEmail = findViewById(R.id.edtEmail);
+
             edtAniversario = findViewById(R.id.edtAniversario);
+            DateUtils.datePickerSimple(CadastroActivity.this, edtAniversario);
+
             edtCpf = findViewById(R.id.edtCpf);
+            edtCpf.addTextChangedListener(MascaraUtils.mask(edtCpf, MascaraUtils.FORMAT_CPF));
+
             edtTelefone = findViewById(R.id.edtTelefone);
+            edtTelefone.addTextChangedListener(MascaraUtils.mask(edtTelefone, MascaraUtils.FORMAT_FONE));
+
             edtEndereco = findViewById(R.id.edtEndereco);
             edtCidade = findViewById(R.id.edtCidade);
             edtEstado = findViewById(R.id.edtEstado);
@@ -70,7 +79,6 @@ public class CadastroActivity extends AppCompatActivity {
             edtConfirmarSenha = findViewById(R.id.edtConfirmarSenha);
             spiPapel = findViewById(R.id.spiPapel);
 
-            DateUtils.datePickerSimple(CadastroActivity.this, edtAniversario);
 
             carregabundle();
             carregaCamposAlterar();

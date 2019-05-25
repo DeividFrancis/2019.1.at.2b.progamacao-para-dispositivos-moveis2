@@ -56,11 +56,11 @@ public class PessoaController {
             throw new ErrorException("Cpf é um campo obrigatório.");
         }
 
-        if (existeDB("cfp", pessoaBean.getCpf())) {
+        if (existeDB("pes.cpf", pessoaBean.getCpf())) {
             throw new ErrorException("Cpf ja cadastrado");
         }
 
-        if (existeDB("email", pessoaBean.getEmail())) {
+        if (existeDB("pes.email", pessoaBean.getEmail())) {
             throw new ErrorException("Email ja cadastrado");
         }
 
@@ -101,7 +101,7 @@ public class PessoaController {
             ret = false;
         }
 
-        if (pessoaList.size() > 0) ret = true;
+        if (pessoaList != null && pessoaList.size() > 0) ret = true;
         else ret = false;
 
         return ret;

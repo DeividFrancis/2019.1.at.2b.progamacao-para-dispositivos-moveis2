@@ -16,6 +16,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.ScreenSplash"
+            android:screenOrientation="portrait"
             android:theme="@style/AppCompat.TelaCheia">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,11 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".view.Exemplo"
-            android:label="@string/title_activity_exemplo"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.UsuarioListActivity"
             android:label="@string/title_activity_usuarios_list"
@@ -40,7 +36,8 @@
         <activity android:name=".view.DashobardActivity" />
         <activity
             android:name=".view.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
