@@ -11,6 +11,7 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.mod
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.CondicaoEnum;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.Filtro;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.Seed.PapelSeed;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.NumberUtils;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.StringUtils;
 
 import java.util.List;
@@ -18,15 +19,16 @@ import java.util.List;
 public class PessoaController {
 
     Context context;
+    PessoaDAO pessoaDAO;
 
     public PessoaController(Context context) {
         this.context = context;
+        pessoaDAO = new PessoaDAO(context);
     }
 
     public PessoaBean fazerLogin(String usuario, String senhaMd5) throws ErrorException {
 
         try {
-            PessoaDAO pessoaDAO = new PessoaDAO(context);
             Filtro filtro = new Filtro();
             filtro.adicionar("cpf", CondicaoEnum.EQUALS, usuario);
             filtro.adicionar("senha", CondicaoEnum.EQUALS, senhaMd5);
@@ -41,7 +43,6 @@ public class PessoaController {
     }
 
     public String atualizar(PessoaBean pessoaBean) throws ErrorException {
-        PessoaDAO pessoaDAO = new PessoaDAO(context);
         pessoaDAO.atualizar(pessoaBean);
         return "Pessoa atulizada com sucesso!";
     }
@@ -63,12 +64,15 @@ public class PessoaController {
             throw new ErrorException("Email ja cadastrado");
         }
 
+        if(papelId == null){
+            papelId = PapelSeed.getIdAleatorio();
+        }
+
         if ((pessoaBean.getSenha().equals(confirmarSenha)) == false) {
             throw new ErrorException("As senhas não conferem.");
         } else {
 
             //cadastro da pessoa.
-            PessoaDAO pessoaDAO = new PessoaDAO(context);
             pessoaBean = pessoaDAO.inserir(pessoaBean);
 
             //definindo o papel para a pessoa cadastrando anteriormente.
@@ -90,7 +94,6 @@ public class PessoaController {
         Filtro filtro = new Filtro();
         filtro.adicionar(coluna, CondicaoEnum.EQUALS, valor);
 
-        PessoaDAO pessoaDAO = new PessoaDAO(context);
         List<PessoaBean> pessoaList = null;
         try {
             pessoaList = pessoaDAO.buscar(filtro);
@@ -98,26 +101,23 @@ public class PessoaController {
             ret = false;
         }
 
-        if (pessoaList != null && pessoaList.size() > 0) ret = true;
+        if (pessoaList.size() > 0) ret = true;
         else ret = false;
 
         return ret;
     }
 
     public PessoaBean getDadosPessoaLogada(Integer usuarioLogadoId) throws ErrorException {
-        PessoaDAO pessoaDAO = new PessoaDAO(context);
         return pessoaDAO.buscarId(usuarioLogadoId);
     }
 
     public PessoaBean resetarSenha(String email) throws ErrorException {
         try {
-            PessoaDAO pessoaDAO = new PessoaDAO(context);
-            PessoaBean pessoaBean = new PessoaBean();
             Filtro filtro = new Filtro();
-            filtro.adicionar("email", CondicaoEnum.EQUALS, email);
-            List<PessoaBean> pessoaBeans = pessoaDAO.buscar(filtro);
+            filtro.adicionar("pes.email", CondicaoEnum.EQUALS, email);
+            List<PessoaBean> pessoaList = pessoaDAO.buscar(filtro);
 
-            pessoaBean = pessoaBeans.get(0);
+            PessoaBean pessoaBean = pessoaList.get(0);
             pessoaBean.setSenha(PessoaSeed.RESETA_SENHA_PADRAO);
             pessoaBean = pessoaDAO.atualizar(pessoaBean);
 
@@ -128,20 +128,14 @@ public class PessoaController {
     }
 
     public List<PessoaBean> getTodos() throws ErrorException {
-        PessoaDAO pessoaDAO = new PessoaDAO(context);
         return pessoaDAO.buscar(null);
     }
 
     public PessoaBean buscaId(Integer pessoaId) throws ErrorException {
-
-        PessoaDAO pessoaDAO = new PessoaDAO(context);
         return pessoaDAO.buscarId(pessoaId);
-
     }
 
     public String deletar(Integer id) throws ErrorException {
-
-        PessoaDAO pessoaDAO = new PessoaDAO(context);
         pessoaDAO.deletar(id);
 
         return "Deletado com sucesso!";

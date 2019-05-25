@@ -15,24 +15,25 @@ import java.util.List;
 public class PapelController {
 
     Context context;
+    PapelDAO papelDAO;
 
     public PapelController(Context context){
         this.context = context;
+        papelDAO = new PapelDAO(context);
     }
 
     public PapelBean getDadosPapelPessoa(Integer pessoaId) throws ErrorException {
-        PessoaPapelDAO pessoaPapelDAO = new PessoaPapelDAO(context);
 
         Filtro filtro = new Filtro();
         filtro.adicionar("pessoa_id", CondicaoEnum.EQUALS ,pessoaId);
 
+        PessoaPapelDAO pessoaPapelDAO = new PessoaPapelDAO(context);
         PessoaPapelBean pessoaPapelBean = pessoaPapelDAO.buscar(filtro).get(0);
 
         return pessoaPapelBean.getPapelBean();
     }
 
     public List<PapelBean> listarTodos() throws ErrorException {
-        PapelDAO papelDAO = new PapelDAO(context);
         return papelDAO.buscar(null);
     }
 }

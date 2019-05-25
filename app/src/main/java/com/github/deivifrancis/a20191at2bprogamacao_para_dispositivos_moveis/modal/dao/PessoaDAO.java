@@ -142,12 +142,12 @@ public class PessoaDAO extends ConnectionDB {
         }
     }
 
-    public void fundir(PessoaBean pessoaBean) throws ErrorException {
+    public PessoaBean fundir(PessoaBean pessoaBean) throws ErrorException {
         try {
             buscarId(pessoaBean.getId());
-            atualizar(pessoaBean);
+            return atualizar(pessoaBean);
         }catch (ErrorException e){
-            inserir(pessoaBean);
+            return inserir(pessoaBean);
         }
     }
 }

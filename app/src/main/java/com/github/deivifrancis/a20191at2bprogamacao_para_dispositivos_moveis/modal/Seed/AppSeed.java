@@ -10,16 +10,15 @@ import java.util.List;
 
 public class AppSeed {
 
-    private List<AbstractSeed> listaDD = new ArrayList<AbstractSeed>();
+    private List<AbstractSeed> listaSeed = new ArrayList<>();
 
     public AppSeed(Context context) {
-        listaDD.add(new PapelSeed(context));
-        listaDD.add(new PessoaSeed(context));
-        listaDD.add(new PessoaPapelSeed(context));
+        listaSeed.add(new PapelSeed(context));
+        listaSeed.add(new PessoaSeed(context));
     }
 
     public void cadastrarPorPadrao() throws ErrorException {
-        for(AbstractSeed dd: listaDD){
+        for(AbstractSeed dd: listaSeed){
             dd.executarDAO();
             Log.d("cadpadrao",dd.getClass().getSimpleName() + " Executado.");
         }

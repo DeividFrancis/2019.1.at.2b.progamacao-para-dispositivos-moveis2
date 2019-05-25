@@ -16,14 +16,16 @@ import java.util.List;
 public class PessoaPapelController {
 
     private Context context;
+    PessoaPapelDAO pessoaPapelDAO;
+    PessoaDAO pessoaDAO;
 
     public PessoaPapelController(Context context){
         this.context = context;
     }
 
     public void atribuirPapelParaPessoa(Integer pessoaId, Integer papelId) throws ErrorException {
-        PessoaPapelDAO pessoaPapelDAO = new PessoaPapelDAO(context);
-        PessoaDAO pessoaDAO = new PessoaDAO(context);
+        pessoaPapelDAO = new PessoaPapelDAO(context);
+        pessoaDAO = new PessoaDAO(context);
         PapelDAO papelDAO = new PapelDAO(context);
         PessoaPapelBean pessoaPapelBean = new PessoaPapelBean();
 

@@ -56,6 +56,12 @@ public class PessoaPapelDAO extends ConnectionDB {
     }
 
     public PessoaPapelBean buscarId(Integer id) throws ErrorException {
+
+        if (id == null){
+            throw new ErrorException("Id nulo.");
+            //TODO: VERIFICAR NOS OUTROS DAO = NOS BUSCA ID, ID NULO.
+        }
+
         Filtro filtro = new Filtro();
         filtro.adicionar("pepa._id", CondicaoEnum.EQUALS, id);
         return buscar(filtro).get(0);

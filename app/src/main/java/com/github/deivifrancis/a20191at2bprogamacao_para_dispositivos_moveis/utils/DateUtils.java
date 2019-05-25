@@ -95,7 +95,7 @@ public class DateUtils {
         int minute = mcurrentTime.get(Calendar.MINUTE);
         TimePickerDialog mTimePicker;
         mTimePicker = new TimePickerDialog(context, timePickerDialogOnTimeSetListener, hour, minute, true);//Yes 24 hour time
-        mTimePicker.setTitle("Select Time");
+//        mTimePicker.setTitle("Select Time");
         mTimePicker.show();
 
     }

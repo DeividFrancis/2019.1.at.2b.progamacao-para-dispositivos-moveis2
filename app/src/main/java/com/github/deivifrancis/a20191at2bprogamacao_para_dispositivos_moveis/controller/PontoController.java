@@ -18,18 +18,19 @@ import java.util.List;
 public class PontoController {
 
     Context context;
+    PontoDAO pontoDAO;
 
     public PontoController(Context context) {
         this.context = context;
     }
 
     public void registrarPonto(PontoBean pontoBean) throws ErrorException {
-        PontoDAO pontoDAO = new PontoDAO(context);
+        pontoDAO = new PontoDAO(context);
         pontoDAO.inserir(pontoBean);
     }
 
     public List<PontoBean> listaTodosPontosPessoa(PessoaBean pessoaBean) throws ErrorException {
-        PontoDAO pontoDAO = new PontoDAO(context);
+        pontoDAO = new PontoDAO(context);
         Filtro filtro = new Filtro();
         filtro.adicionar("pessoa_id", CondicaoEnum.EQUALS, pessoaBean.getId());
         return pontoDAO.buscar(filtro);
@@ -38,7 +39,7 @@ public class PontoController {
 
     public String registrarPonto(PessoaBean pessoaLogada) {
 
-        PontoDAO pontoDAO = new PontoDAO(context);
+        pontoDAO = new PontoDAO(context);
         PontoBean pontoBean = null;
         Date data = new Date();
 

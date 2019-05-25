@@ -59,7 +59,7 @@ public class AppCompatActivityDefault extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
 
-        if(papelBean.getId().equals(PapelSeed.FUNCIONARIO)){
+        if((papelBean.getId().equals(PapelSeed.ADMIN)) == false){
             MenuItem itemUsuarios = menu.findItem(R.id.itemUsuarios);
             itemUsuarios.setVisible(false);
         }
