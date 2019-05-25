@@ -75,7 +75,7 @@ public class UsuarioListActivity extends AppCompatActivityDefault {
         svPessoa.setVisibility(View.VISIBLE);
         preparaSeachViewPessoa();
 
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     private void preparaSeachViewPessoa() {

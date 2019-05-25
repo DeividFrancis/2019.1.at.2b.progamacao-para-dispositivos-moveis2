@@ -10,18 +10,21 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.R;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.ConfiguracaoGeralController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PessoaController;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.Seed.PessoaSeed;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.ConfiguracaoGeralBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.erro.ErrorException;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.Seed.AppSeed;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.DateUtils;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.MascaraUtils;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.OsUtils;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.StringUtils;
 
 import java.text.ParseException;
@@ -29,6 +32,8 @@ import java.util.Date;
 
 public class LoginActivity extends AppCompatActivity {
 
+
+    LinearLayout main;
     EditText edtCpf, edtSenha;
     Button btnEntrar, btnRecuperarSenha, btnCadastrar;
     Switch swtLembrarSenha;
@@ -42,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         try {
             iniciarDD();
 
+            main = findViewById(R.id.main);
+
             edtCpf = findViewById(R.id.edtCpf);
             edtCpf.addTextChangedListener(MascaraUtils.mask(edtCpf, MascaraUtils.FORMAT_CPF));
             edtSenha = findViewById(R.id.edtSenha);
@@ -53,12 +60,36 @@ public class LoginActivity extends AppCompatActivity {
             swtLembrarSenha = findViewById(R.id.swtLembrarSenha);
 
             validarLembrarSenhaECarregarBundle();
+            preechimentoAutomaticoDebug();
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             Log.e("Login", e.getMessage());
             e.printStackTrace();
         }
 
+    }
+
+    private void preechimentoAutomaticoDebug(){
+        main.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                try {
+                    OsUtils.vibrar(getApplicationContext());
+
+                    PessoaController pessoaController = new PessoaController(getApplicationContext());
+                    PessoaBean pessoaBean = pessoaController.buscaId(PessoaSeed.ADMIN);
+                    edtCpf.setText(pessoaBean.getCpf());
+                    edtSenha.setText(pessoaBean.getSenha());
+
+                } catch (ErrorException e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
+
+
+                return false;
+            }
+        });
     }
 
     public void onClick(View view) {

@@ -14,11 +14,13 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.R;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.ConfiguracaoGeralController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PapelController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PessoaPapelController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PontoController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.erro.ErrorException;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.Seed.PapelSeed;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.ConfiguracaoGeralBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PapelBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PontoBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.DateUtils;
@@ -102,22 +104,26 @@ public class PontoAdapter extends RecyclerView.Adapter<PontoAdapter.PontoViewHol
             txtHora03 = itemView.findViewById(R.id.txtHora03);
             txtHora04 = itemView.findViewById(R.id.txtHora04);
 
-//            try {
-//                PontoBean pontoBean = pontoList.get(getLayoutPosition());
-//                Integer pessoaId = pontoBean.getPessoaBean().getId();
-//                PapelController papelController = new PapelController(itemView.getContext());
-//                PapelBean papelBean = papelController.getDadosPapelPessoa(pessoaId);
-//                if (papelBean.getId().equals(PapelSeed.ADMIN) == true) {
+            try {
+
+                ConfiguracaoGeralController configuracaoGeralController = new ConfiguracaoGeralController(itemView.getContext());
+                ConfiguracaoGeralBean configuracaoGeralBean = configuracaoGeralController.busca();;
+
+                Integer pessoaId = configuracaoGeralBean.getUsuarioLogadoId();
+                PapelController papelController = new PapelController(itemView.getContext());
+                PapelBean papelBean = papelController.getDadosPapelPessoa(pessoaId);
+                if (papelBean.getId().equals(PapelSeed.ADMIN) == true) {
 
                     preparaTimePicker(R.id.contentHora01, txtHora01, HORA01);
                     preparaTimePicker(R.id.contentHora02, txtHora02, HORA02);
                     preparaTimePicker(R.id.contentHora03, txtHora03, HORA03);
                     preparaTimePicker(R.id.contentHora04, txtHora04, HORA04);
 
-//                }
-//            } catch (ErrorException e) {
-//                e.printStackTrace();
-//            }
+                }
+            } catch (ErrorException e) {
+                Toast.makeText(itemView.getContext(), e.getMessage(), Toast.LENGTH_LONG);
+                e.printStackTrace();
+            }
         }
 
         private void preparaTimePicker(int id, final TextView txtView, final String column) {

@@ -23,7 +23,9 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.mod
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.ConfiguracaoGeralBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PapelBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaBean;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.view.Dashboard2Activity;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.view.LoginActivity;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.view.ScreenSplash;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.view.UsuarioListActivity;
 
 public class AppCompatActivityDefault extends AppCompatActivity {
@@ -50,7 +52,7 @@ public class AppCompatActivityDefault extends AppCompatActivity {
 
         boolean isMainActivity = false;
 
-        if (this.getClass().equals(LoginActivity.class) == false) {
+        if (this.getClass().equals(Dashboard2Activity.class) == false) {
             isMainActivity = true;
         }
 
@@ -72,11 +74,10 @@ public class AppCompatActivityDefault extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-
         String text = null;
         switch (item.getItemId()) {
             case R.id.itemUsuarios:
+                if(getClass().equals(UsuarioListActivity.class)) break;
                 startActivity(new Intent(this, UsuarioListActivity.class));
 
             case R.id.itemConfig:
@@ -103,7 +104,17 @@ public class AppCompatActivityDefault extends AppCompatActivity {
         builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                ConfiguracaoGeralController configuracaoGeralController = new ConfiguracaoGeralController(getApplicationContext());
+                try {
+                    ConfiguracaoGeralBean configuracaoGeralBean = configuracaoGeralController.busca();
+                    configuracaoGeralBean.setSalvaSenha(false);
+                    configuracaoGeralController.inserir(configuracaoGeralBean);
+                } catch (ErrorException e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
                 finishAffinity();
+                startActivity(new Intent(getApplicationContext(), ScreenSplash.class));
             }
         });
         final Context obj = this;

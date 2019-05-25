@@ -30,8 +30,8 @@ public class PessoaController {
 
         try {
             Filtro filtro = new Filtro();
-            filtro.adicionar("cpf", CondicaoEnum.EQUALS, usuario);
-            filtro.adicionar("senha", CondicaoEnum.EQUALS, senhaMd5);
+            filtro.adicionar("pes.cpf", CondicaoEnum.EQUALS, usuario);
+            filtro.adicionar("pes.senha", CondicaoEnum.EQUALS, senhaMd5);
 
             List<PessoaBean> pessoaLIsta = pessoaDAO.buscar(filtro);
             return pessoaLIsta.get(0);
