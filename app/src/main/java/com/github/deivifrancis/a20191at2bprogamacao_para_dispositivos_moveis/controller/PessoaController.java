@@ -140,4 +140,12 @@ public class PessoaController {
 
         return "Deletado com sucesso!";
     }
+
+    public PessoaBean buscaUsuario(String usuario) throws ErrorException {
+        Filtro filtro = new Filtro();
+        filtro.adicionar("pes.cpf", CondicaoEnum.EQUALS, usuario);
+
+        List<PessoaBean> pessoaList = pessoaDAO.buscar(filtro);
+        return pessoaList.get(0);
+    }
 }

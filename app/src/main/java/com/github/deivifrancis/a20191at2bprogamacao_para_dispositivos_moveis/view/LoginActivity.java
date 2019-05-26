@@ -171,6 +171,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Dashboard2Activity.class);
         intent.putExtras(bundle);
         startActivity(intent);
+        finish();
     }
 
     private void iniciarDD() throws ErrorException {

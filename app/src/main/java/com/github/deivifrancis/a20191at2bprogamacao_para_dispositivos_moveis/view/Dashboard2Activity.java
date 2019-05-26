@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.R;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PessoaController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PessoaPapelController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PontoController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.erro.ErrorException;
@@ -23,6 +24,8 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.mod
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaPapelBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PontoBean;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.CondicaoEnum;
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.db.Filtro;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.StringUtils;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.view.adapter.PontoAdapter;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.view.core.AppCompatActivityDefault;
@@ -32,6 +35,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Dashboard2Activity extends AppCompatActivityDefault {
+
+    private static final String PESSOA_ID = "pessoa_id";
+    Bundle bundle;
 
     TextView txtNome;
     TextView txtPapel;
@@ -51,11 +57,10 @@ public class Dashboard2Activity extends AppCompatActivityDefault {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_dashboard2);
             Toolbar toolbar = findViewById(R.id.toolbar);
-            toolbar.setTitle("");
             setSupportActionBar(toolbar);
 
-            txtNome = findViewById(R.id.txtNomeUsuario);
-            txtPapel = findViewById(R.id.txtPapel);
+            txtNome = toolbar.findViewById(R.id.txtNome);
+            txtPapel = toolbar.findViewById(R.id.txtPapel);
             rcPonto = findViewById(R.id.rcPonto);
             fab = findViewById(R.id.fab);
             swipeRefresh = findViewById(R.id.swiperefresh);
@@ -122,10 +127,10 @@ public class Dashboard2Activity extends AppCompatActivityDefault {
     }
 
     private void configTelaPelaPessoa() throws ErrorException {
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         PessoaPapelController pessoaPapelController = new PessoaPapelController(this);
-        if (bundle.containsKey("pessoa_id") == true) {
-            Integer pessoaId = bundle.getInt("pessoa_id");
+        if (bundle.containsKey(PESSOA_ID) == true) {
+            Integer pessoaId = bundle.getInt(PESSOA_ID);
 
             pessoaPapelBean = pessoaPapelController.buscaPorPessoaId(pessoaId);
             pessoaBean = pessoaPapelBean.getPessoaBean();
@@ -157,15 +162,22 @@ public class Dashboard2Activity extends AppCompatActivityDefault {
     }
 
 
-    private void mostrarBundle() {
+    private void mostrarBundle() throws ErrorException {
         Bundle bundle = getIntent().getExtras();
 
         String usuario = bundle.getString(ConfiguracaoGeralBean.USUARIO);
         String ultimoLogin = bundle.getString(ConfiguracaoGeralBean.ULTIMO_LOGIN);
 
+
         if ((StringUtils.naoTemValor(usuario) == false) || (StringUtils.naoTemValor(ultimoLogin) == false)) {
-            String msg = "Último login: " + ultimoLogin + ", usuário: " + usuario;
+
+//        TODO: O CERTO E DEIXAR O CONFIGURACAO  GERAL ESTAR MAIS DINAMICO
+            PessoaController pessoaController = new PessoaController(this);
+            PessoaBean pessoaBean = pessoaController.buscaUsuario(usuario);
+
+            String msg = "Último login: " + ultimoLogin + ", usuário: " + pessoaBean.getNome();
             Snackbar.make(fab, msg, Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
+
     }
 }

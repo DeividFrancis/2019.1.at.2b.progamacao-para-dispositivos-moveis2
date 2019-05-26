@@ -1,21 +1,19 @@
 package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.view;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,7 +21,6 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.R;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PapelController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PessoaController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PessoaPapelController;
-import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.controller.PontoController;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.erro.ErrorException;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PapelBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaBean;
@@ -31,12 +28,8 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.mod
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.DateUtils;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.utils.MascaraUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 public class CadastroActivity extends AppCompatActivity {
 
@@ -44,6 +37,7 @@ public class CadastroActivity extends AppCompatActivity {
     EditText edtNome, edtEmail, edtAniversario, edtCpf, edtTelefone, edtEndereco, edtCidade, edtEstado, edtSenha, edtConfirmarSenha;
     Bundle bundle;
     Spinner spiPapel;
+    LinearLayout frameLoad;
 
     PessoaBean pessoaBean;
 
@@ -58,6 +52,10 @@ public class CadastroActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Cadastro");
 
         try {
+
+            frameLoad = findViewById(R.id.frameLoad);
+            frameLoad.setVisibility(View.GONE);
+
             loadSpinner();
 
             edtNome = findViewById(R.id.edtNome);
@@ -169,7 +167,7 @@ public class CadastroActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.itemOK:
-                    cadastraOuAteraPessoa();
+                    loadingFake();
                     break;
                 case R.id.itemDelete:
                     deletarPessoa();
@@ -180,6 +178,18 @@ public class CadastroActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void loadingFake() {
+        frameLoad.setVisibility(View.VISIBLE);
+        Handler handle = new Handler();
+        handle.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                cadastraOuAteraPessoa();
+                frameLoad.setVisibility(View.GONE);
+            }
+        }, 2000);
     }
 
     private void deletarPessoa() {

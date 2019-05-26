@@ -98,7 +98,7 @@ public class AppCompatActivityDefault extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void alertDialogExit() {
+    protected void alertDialogExit() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Deseja realmente sair do app?");
         builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
