@@ -2,6 +2,7 @@ package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.vi
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -10,11 +11,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.R;
@@ -95,14 +98,39 @@ public class CadastroActivity extends AppCompatActivity {
         List<String> labelList = new ArrayList<>();
         papelIdList = new ArrayList<>();
         papelIdList.add(0);
-        labelList.add("Papel");
+        labelList.add("Selecione...");
         for (PapelBean papelBean : papelList) {
             papelIdList.add(papelBean.getId());
             labelList.add(papelBean.getDescricao());
         }
 
         spiPapel = findViewById(R.id.spiPapel);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, labelList);
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_item, labelList) {
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                } else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spiPapel.setAdapter(dataAdapter);
@@ -234,6 +262,7 @@ public class CadastroActivity extends AppCompatActivity {
             pessoaBean.setSenha(edtSenha.getText().toString());
 //
             int position = spiPapel.getSelectedItemPosition();
+            if (position == 0) throw new ErrorException("Selecione um papel");
             Integer papelId = papelIdList.get(position);
 
             String confirmarSenha = edtConfirmarSenha.getText().toString();
