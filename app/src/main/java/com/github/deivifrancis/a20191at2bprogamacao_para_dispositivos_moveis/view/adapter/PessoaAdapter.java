@@ -22,6 +22,8 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.vie
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.R.id.txtFirstLetter;
+
 public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaViewHolder> {
 
     List<PessoaBean> pessoaList;
@@ -57,8 +59,12 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
             PessoaBean pessoaBean = pessoaList.get(i);
             PapelBean papelBean = papelList.get(i);
 
-            pessoaViewHolder.getTxtNome().setText(pessoaBean.getNome());
+            String nome = pessoaBean.getNome();
+            String firstLetter = nome.substring(0,1).toUpperCase();
+
+            pessoaViewHolder.getTxtNome().setText(nome);
             pessoaViewHolder.getTxtPapel().setText(papelBean.getDescricao());
+            pessoaViewHolder.getTxtFirstLetter().setText(firstLetter);
 
         }
     }
@@ -70,14 +76,15 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
 
     protected class PessoaViewHolder extends  RecyclerView.ViewHolder{
 
-        private ImageView imgFotoPerfil;
+        private TextView txtFirstLetter;
         private TextView txtNome;
         private TextView txtPapel;
 
         public PessoaViewHolder(@NonNull View itemView, final Context context) {
             super(itemView);
 
-            imgFotoPerfil = itemView.findViewById(R.id.imgFotoPerfil);
+//            imgFotoPerfil = itemView.findViewById(R.id.imgFotoPerfil);
+            txtFirstLetter = itemView.findViewById(R.id.txtFirstLetter);
             txtNome = itemView.findViewById(R.id.txtNomeUsuario);
             txtPapel = itemView.findViewById(R.id.txtPapel);
 
@@ -110,12 +117,12 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
             });
         }
 
-        public ImageView getImgFotoPerfil() {
-            return imgFotoPerfil;
+        public TextView getTxtFirstLetter() {
+            return txtFirstLetter;
         }
 
-        public void setImgFotoPerfil(ImageView imgFotoPerfil) {
-            this.imgFotoPerfil = imgFotoPerfil;
+        public void setTxtFirstLetter(TextView txtFirstLetter) {
+            this.txtFirstLetter = txtFirstLetter;
         }
 
         public TextView getTxtNome() {

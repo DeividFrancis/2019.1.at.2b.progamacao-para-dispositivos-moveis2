@@ -94,10 +94,12 @@ public class PessoaPapelDAO extends ConnectionDB {
         pessoaPapelQuery.append("  		   pes.cidade,                                          ");
         pessoaPapelQuery.append("  		   pes.estado,                                          ");
         pessoaPapelQuery.append("  		   pap.descricao                                        ");
-        pessoaPapelQuery.append("      from "+TABELA+" pepa                                      ");
-        pessoaPapelQuery.append("      join pessoa pes on (pes._id = pepa.pessoa_id)               ");
-        pessoaPapelQuery.append("      join papel pap on (pap._id = pepa.papel_id)             ");
-        pessoaPapelQuery.append("     where 1 = 1 "+condicoes                                     );
+        pessoaPapelQuery.append("      from "+TABELA+" pepa                                     ");
+        pessoaPapelQuery.append("      join pessoa pes on (pes._id = pepa.pessoa_id)            ");
+        pessoaPapelQuery.append("      join papel pap on (pap._id = pepa.papel_id)              ");
+        pessoaPapelQuery.append("     where 1 = 1 "+condicoes                                    );
+        pessoaPapelQuery.append("  order by pes.nome                                            ");
+
 
         Cursor cursor = db.rawQuery(pessoaPapelQuery.toString(), parametros);
 
