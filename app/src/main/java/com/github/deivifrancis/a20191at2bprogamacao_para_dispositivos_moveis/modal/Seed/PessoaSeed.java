@@ -18,6 +18,7 @@ public class PessoaSeed extends AbstractSeed {
 
     public static final int ADMIN = 1;
     public static final String RESETA_SENHA_PADRAO = "1234";
+    public static final String IRONMAN_NOME = "Tony Stark";
 
     public PessoaSeed(Context context) throws ErrorException {
         super(context);
@@ -27,7 +28,7 @@ public class PessoaSeed extends AbstractSeed {
     public void preparar() throws ErrorException {
         adicionar(new PessoaBean(ADMIN,"Direto ao Ponto","123.123.123-12",null,null,"ponto@gmail.com","123",null,null,null,null));
         adicionar(new PessoaBean(2,"Nick Fury","680.894.000-00","Hell's Kitchen","69999265689","fury@shield.com","123","140","Nova York","NY",DateUtils.parse("01/05/1963")));
-        adicionar(new PessoaBean(3,"Tony Stark","286.001.768-24","Long Island","(69)99834-0473","homemdeferro@shield.com","123","980","Nova York","NY", DateUtils.parse("25/11/1984")));
+        adicionar(new PessoaBean(3,IRONMAN_NOME,"286.001.768-24","Long Island","(69)99834-0473","homemdeferro@shield.com","123","980","Nova York","NY", DateUtils.parse("25/11/1984")));
         adicionar(new PessoaBean(4,"Steve Rogers","808.708.138-20","Brooklyn","(41)99424-4825","capitaoamerica@shield.com","123","344","Nova York","NY", DateUtils.parse("04/07/1920")));
         adicionar(new PessoaBean(5,"Thor","776.935.463-32","Asgard","(69)98654-2266","thor@shield.com","123","756","Asgard","AG", DateUtils.parse("01/01/500")));
         adicionar(new PessoaBean(6,"Bruce Banner","671.002.050-93","Dayton","(62)98629-6413","hulk@shield.com","123","426","Ohio","OH", DateUtils.parse("19/02/1943")));

@@ -34,8 +34,13 @@ public class Filtro {
                 objeto = objeto.toString();
             }
 
-            if(condicaoLista.get(i).equals(CondicaoEnum.LIKE)){
+            CondicaoEnum condicaoEnum = condicaoLista.get(i);
+            if(condicaoEnum.equals(CondicaoEnum.LIKE)){
                 objeto = "%" + objeto + "%";
+            }else if(condicaoEnum.equals(CondicaoEnum.LIKEIN)){
+                objeto = objeto + "%";
+            }else if(condicaoEnum.equals(CondicaoEnum.LIKEOUT)){
+                objeto = "%" + objeto;
             }
             array[i] = (String) objeto;
         }

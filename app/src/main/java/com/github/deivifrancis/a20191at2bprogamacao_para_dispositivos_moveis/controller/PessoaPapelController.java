@@ -2,6 +2,7 @@ package com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.co
 
 import android.content.Context;
 
+import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.Seed.PessoaSeed;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.bean.PessoaPapelBean;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.erro.ErrorException;
 import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.modal.dao.PapelDAO;
@@ -63,7 +64,11 @@ public class PessoaPapelController {
         Filtro filtro = null;
         if(StringUtils.naoTemValor(nome) == false){
             filtro = new Filtro();
-            filtro.adicionar("pes.nome", CondicaoEnum.LIKE, nome);
+            if(nome.toLowerCase().equals("melhor vingador")){
+                filtro.adicionar("pes.nome", CondicaoEnum.EQUALS, PessoaSeed.IRONMAN_NOME);
+            }else{
+                filtro.adicionar("pes.nome", CondicaoEnum.LIKEIN, nome);
+            }
         }
         return pessoaPapelDAO.buscar(filtro);
     }
