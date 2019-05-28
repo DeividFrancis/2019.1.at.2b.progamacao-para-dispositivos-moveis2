@@ -38,5 +38,6 @@ public class ScreenSplash extends AppCompatActivity {
         Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
         finish();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

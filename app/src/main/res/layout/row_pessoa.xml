@@ -16,6 +16,7 @@
         android:background="@drawable/shape_circle_user"
         android:gravity="center"
         android:text="D"
+        android:textColor="@color/textAccentLight"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
