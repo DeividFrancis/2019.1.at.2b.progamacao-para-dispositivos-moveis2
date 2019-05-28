@@ -13,8 +13,6 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.uti
 import java.util.Date;
 import java.util.List;
 
-//TODO deixar todos os controller com os DAOS como globais pra a classe
-
 public class PontoController {
 
     Context context;
@@ -22,15 +20,14 @@ public class PontoController {
 
     public PontoController(Context context) {
         this.context = context;
+        pontoDAO = new PontoDAO(context);
     }
 
     public void registrarPonto(PontoBean pontoBean) throws ErrorException {
-        pontoDAO = new PontoDAO(context);
         pontoDAO.inserir(pontoBean);
     }
 
     public List<PontoBean> listaTodosPontosPessoa(PessoaBean pessoaBean) throws ErrorException {
-        pontoDAO = new PontoDAO(context);
         Filtro filtro = new Filtro();
         filtro.adicionar("pessoa_id", CondicaoEnum.EQUALS, pessoaBean.getId());
         return pontoDAO.buscar(filtro);
@@ -39,7 +36,6 @@ public class PontoController {
 
     public String registrarPonto(PessoaBean pessoaLogada) {
 
-        pontoDAO = new PontoDAO(context);
         PontoBean pontoBean = null;
         Date data = new Date();
 
@@ -89,7 +85,6 @@ public class PontoController {
 
     public PontoBean atualizaPonto(PontoBean pontoBean) throws ErrorException {
 
-        PontoDAO pontoDAO = new PontoDAO(context);
         return pontoDAO.atualizar(pontoBean);
     }
 }

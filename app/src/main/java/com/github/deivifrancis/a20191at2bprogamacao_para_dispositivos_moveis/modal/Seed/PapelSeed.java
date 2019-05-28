@@ -11,7 +11,7 @@ public class PapelSeed extends AbstractSeed {
 
     public static final int ADMIN = 1;
 
-    public PapelSeed(Context context) {
+    public PapelSeed(Context context) throws ErrorException {
         super(context);
     }
 

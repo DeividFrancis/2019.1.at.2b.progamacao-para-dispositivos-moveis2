@@ -73,6 +73,11 @@ public class PessoaDAO extends ConnectionDB {
     }
 
     public PessoaBean buscarId(Integer id) throws ErrorException{
+
+        if (id == null){
+            throw new ErrorException("Id está vazio.");
+        }
+
         PessoaBean pessoaBean = null;
         Filtro filtro = new Filtro();
         filtro.adicionar("pes._id", CondicaoEnum.EQUALS,id);
@@ -92,23 +97,23 @@ public class PessoaDAO extends ConnectionDB {
             parametros = filtro.criarParametros();
         }
 
-        StringBuilder pessoa = new StringBuilder();
-        pessoa.append("    select                                                          ");
-        pessoa.append("  		  pes._id,                                                     ");
-        pessoa.append("  		  pes.nome,                                                    ");
-        pessoa.append("  		  pes.cpf,                                                     ");
-        pessoa.append("  		  pes.aniversario,                                             ");
-        pessoa.append("  		  pes.logradouro,                                              ");
-        pessoa.append("  		  pes.telefone,                                                ");
-        pessoa.append("  		  pes.email,                                                   ");
-        pessoa.append("  		  pes.senha,                                                   ");
-        pessoa.append("  		  pes.numero,                                                  ");
-        pessoa.append("  		  pes.cidade,                                                  ");
-        pessoa.append("  		  pes.estado                                                   ");
-        pessoa.append("      from "+TABELA+" pes                                               ");
-        pessoa.append("  	where 1 = 1 "+condicoes                                         );
+        StringBuilder pessoaQuery = new StringBuilder();
+        pessoaQuery.append("    select                                                             ");
+        pessoaQuery.append("  		  pes._id,                                                     ");
+        pessoaQuery.append("  		  pes.nome,                                                    ");
+        pessoaQuery.append("  		  pes.cpf,                                                     ");
+        pessoaQuery.append("  		  pes.aniversario,                                             ");
+        pessoaQuery.append("  		  pes.logradouro,                                              ");
+        pessoaQuery.append("  		  pes.telefone,                                                ");
+        pessoaQuery.append("  		  pes.email,                                                   ");
+        pessoaQuery.append("  		  pes.senha,                                                   ");
+        pessoaQuery.append("  		  pes.numero,                                                  ");
+        pessoaQuery.append("  		  pes.cidade,                                                  ");
+        pessoaQuery.append("  		  pes.estado                                                   ");
+        pessoaQuery.append("      from "+TABELA+" pes                                              ");
+        pessoaQuery.append("  	where 1 = 1 "+condicoes                                             );
 
-        Cursor cursor = db.rawQuery(pessoa.toString(), parametros);
+        Cursor cursor = db.rawQuery(pessoaQuery.toString(), parametros);
 
         if (cursor.getCount() > 0){
             cursor.moveToFirst();

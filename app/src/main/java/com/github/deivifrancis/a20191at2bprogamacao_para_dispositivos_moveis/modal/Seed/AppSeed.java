@@ -12,7 +12,7 @@ public class AppSeed {
 
     private List<AbstractSeed> listaSeed = new ArrayList<>();
 
-    public AppSeed(Context context) {
+    public AppSeed(Context context) throws ErrorException {
         listaSeed.add(new PapelSeed(context));
         listaSeed.add(new PessoaSeed(context));
     }

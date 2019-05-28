@@ -56,6 +56,10 @@ public class PapelDAO extends ConnectionDB {
 
     public PapelBean buscarId(Integer id) throws ErrorException {
 
+        if (id == null){
+            throw new ErrorException("Id está vazio.");
+        }
+
         PapelBean papelBean = null;
         Filtro filtro = new Filtro();
         filtro.adicionar("_id", CondicaoEnum.EQUALS,id);
@@ -75,14 +79,14 @@ public class PapelDAO extends ConnectionDB {
             parametros = filtro.criarParametros();
         }
 
-        StringBuilder papel = new StringBuilder();
-        papel.append("    select                                                         ");
-        papel.append("  		 pap._id,                                                    ");
-        papel.append("  		 pap.descricao                                               ");
-        papel.append("      from "+TABELA+" pap                                              ");
-        papel.append("     where 1 = 1 "+condicoes                                        );
+        StringBuilder papelQuery = new StringBuilder();
+        papelQuery.append("    select                                                               ");
+        papelQuery.append("  		 pap._id,                                                       ");
+        papelQuery.append("  		 pap.descricao                                                  ");
+        papelQuery.append("      from "+TABELA+" pap                                                ");
+        papelQuery.append("     where 1 = 1 "+condicoes                                              );
 
-        Cursor cursor = db.rawQuery(papel.toString(), parametros);
+        Cursor cursor = db.rawQuery(papelQuery.toString(), parametros);
 
         if (cursor.getCount() > 0){
             cursor.moveToFirst();

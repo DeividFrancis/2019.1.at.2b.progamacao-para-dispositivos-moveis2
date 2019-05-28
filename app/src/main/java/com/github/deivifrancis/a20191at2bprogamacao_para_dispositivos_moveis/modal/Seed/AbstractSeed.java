@@ -12,12 +12,12 @@ public abstract class AbstractSeed {
     protected Context context;
     protected List<Object> listaBean = new ArrayList<Object>();
 
-    public AbstractSeed(Context context){
+    public AbstractSeed(Context context) throws ErrorException {
         this.context = context;
         preparar();
     }
 
-    public abstract void preparar();
+    public abstract void preparar() throws ErrorException;
 
     public abstract void executarDAO() throws ErrorException;
 

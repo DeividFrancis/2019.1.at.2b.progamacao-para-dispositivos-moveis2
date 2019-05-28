@@ -21,10 +21,10 @@ public class PessoaPapelController {
 
     public PessoaPapelController(Context context){
         this.context = context;
+        pessoaPapelDAO = new PessoaPapelDAO(context);
     }
 
     public void atribuirPapelParaPessoa(Integer pessoaId, Integer papelId) throws ErrorException {
-        pessoaPapelDAO = new PessoaPapelDAO(context);
         pessoaDAO = new PessoaDAO(context);
         PapelDAO papelDAO = new PapelDAO(context);
         PessoaPapelBean pessoaPapelBean = new PessoaPapelBean();
@@ -51,17 +51,14 @@ public class PessoaPapelController {
         Filtro filtro = new Filtro();
         filtro.adicionar("pepa.pessoa_id", CondicaoEnum.EQUALS, id);
 
-        PessoaPapelDAO pessoaPapelDAO = new PessoaPapelDAO(context);
         return pessoaPapelDAO.buscar(filtro).get(0);
     }
 
     public List<PessoaPapelBean> buscaTodos() throws ErrorException {
-        PessoaPapelDAO pessoaPapelDAO = new PessoaPapelDAO(context);
         return pessoaPapelDAO.buscar(null);
     }
 
     public List<PessoaPapelBean> buscarNome(String nome) throws ErrorException {
-        PessoaPapelDAO pessoaPapelDAO = new PessoaPapelDAO(context);
 
         Filtro filtro = null;
         if(StringUtils.naoTemValor(nome) == false){

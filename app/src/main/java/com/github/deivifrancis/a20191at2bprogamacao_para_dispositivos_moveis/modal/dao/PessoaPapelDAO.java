@@ -58,8 +58,7 @@ public class PessoaPapelDAO extends ConnectionDB {
     public PessoaPapelBean buscarId(Integer id) throws ErrorException {
 
         if (id == null){
-            throw new ErrorException("Id nulo.");
-            //TODO: VERIFICAR NOS OUTROS DAO = NOS BUSCA ID, ID NULO.
+            throw new ErrorException("Id está vazio.");
         }
 
         Filtro filtro = new Filtro();
@@ -79,26 +78,26 @@ public class PessoaPapelDAO extends ConnectionDB {
         }
 
         StringBuilder pessoaPapelQuery = new StringBuilder();
-        pessoaPapelQuery.append("    select                                                      ");
-        pessoaPapelQuery.append("  		   pepa._id,                                            ");
-        pessoaPapelQuery.append("  		   pepa.pessoa_id,                                      ");
-        pessoaPapelQuery.append("  		   pepa.papel_id,                                       ");
-        pessoaPapelQuery.append("  		   pes.nome,                                            ");
-        pessoaPapelQuery.append("  		   pes.cpf,                                             ");
-        pessoaPapelQuery.append("  		   pes.aniversario,                                     ");
-        pessoaPapelQuery.append("  		   pes.logradouro,                                      ");
-        pessoaPapelQuery.append("  		   pes.telefone,                                        ");
-        pessoaPapelQuery.append("  		   pes.email,                                           ");
-        pessoaPapelQuery.append("  		   pes.senha,                                           ");
-        pessoaPapelQuery.append("  		   pes.numero,                                          ");
-        pessoaPapelQuery.append("  		   pes.cidade,                                          ");
-        pessoaPapelQuery.append("  		   pes.estado,                                          ");
-        pessoaPapelQuery.append("  		   pap.descricao                                        ");
-        pessoaPapelQuery.append("      from "+TABELA+" pepa                                     ");
-        pessoaPapelQuery.append("      join pessoa pes on (pes._id = pepa.pessoa_id)            ");
-        pessoaPapelQuery.append("      join papel pap on (pap._id = pepa.papel_id)              ");
-        pessoaPapelQuery.append("     where 1 = 1 "+condicoes                                    );
-        pessoaPapelQuery.append("  order by pes.nome                                            ");
+        pessoaPapelQuery.append("    select                                                         ");
+        pessoaPapelQuery.append("  		   pepa._id,                                                ");
+        pessoaPapelQuery.append("  		   pepa.pessoa_id,                                          ");
+        pessoaPapelQuery.append("  		   pepa.papel_id,                                           ");
+        pessoaPapelQuery.append("  		   pes.nome,                                                ");
+        pessoaPapelQuery.append("  		   pes.cpf,                                                 ");
+        pessoaPapelQuery.append("  		   pes.aniversario,                                         ");
+        pessoaPapelQuery.append("  		   pes.logradouro,                                          ");
+        pessoaPapelQuery.append("  		   pes.telefone,                                            ");
+        pessoaPapelQuery.append("  		   pes.email,                                               ");
+        pessoaPapelQuery.append("  		   pes.senha,                                               ");
+        pessoaPapelQuery.append("  		   pes.numero,                                              ");
+        pessoaPapelQuery.append("  		   pes.cidade,                                              ");
+        pessoaPapelQuery.append("  		   pes.estado,                                              ");
+        pessoaPapelQuery.append("  		   pap.descricao                                            ");
+        pessoaPapelQuery.append("      from "+TABELA+" pepa                                         ");
+        pessoaPapelQuery.append("      join pessoa pes on (pes._id = pepa.pessoa_id)                ");
+        pessoaPapelQuery.append("      join papel pap on (pap._id = pepa.papel_id)                  ");
+        pessoaPapelQuery.append("     where 1 = 1 "+condicoes                                        );
+        pessoaPapelQuery.append("  order by pes.nome                                                ");
 
 
         Cursor cursor = db.rawQuery(pessoaPapelQuery.toString(), parametros);

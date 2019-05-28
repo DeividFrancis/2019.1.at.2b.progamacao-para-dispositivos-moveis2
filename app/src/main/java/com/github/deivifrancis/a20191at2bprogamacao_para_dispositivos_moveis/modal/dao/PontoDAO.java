@@ -77,12 +77,15 @@ public class PontoDAO extends ConnectionDB {
     }
 
     public PontoBean buscarId(Integer id) throws ErrorException {
-        if(id == null) throw new ErrorException("id esta vazio");
-        PontoBean pontoBean = null;
+
+        if(id == null){
+            throw new ErrorException("id esta vazio.");
+        }
+
         Filtro filtro = new Filtro();
         filtro.adicionar("pon._id", CondicaoEnum.EQUALS, id);
         List<PontoBean> lista = buscar(filtro);
-        pontoBean =  lista.get(0);
+        PontoBean pontoBean =  lista.get(0);
 
         return  pontoBean;
     }
@@ -101,37 +104,36 @@ public class PontoDAO extends ConnectionDB {
             parametros = filtro.criarParametros();
         }
 
-        StringBuilder ponto = new StringBuilder();
-        ponto.append("    select                                                      ");
-        ponto.append("  		 pon._id,                                             ");
-        ponto.append("  		 pon.pessoa_id,                                       ");
-        ponto.append("  		 pon.data,                                            ");
-        ponto.append("  		 pon.hora01,                                          ");
-        ponto.append("  		 pon.hora02,                                          ");
-        ponto.append("  		 pon.hora03,                                          ");
-        ponto.append("  		 pon.hora04,                                          ");
-        ponto.append("  		 pon.hora05,                                          ");
-        ponto.append("  		 pon.hora06,                                          ");
-        ponto.append("  		 pon.hora07,                                          ");
-        ponto.append("  		 pon.hora08,                                          ");
-        ponto.append("  		 pon.hora09,                                          ");
-        ponto.append("  		 pon.hora10,                                          ");
-        ponto.append("  		 pes.nome,                                            ");
-        ponto.append("  		 pes.cpf,                                             ");
-        ponto.append("  		 pes.aniversario,                                     ");
-        ponto.append("  		 pes.logradouro,                                      ");
-        ponto.append("  		 pes.telefone,                                        ");
-        ponto.append("  		 pes.email,                                           ");
-        ponto.append("  		 pes.senha,                                           ");
-        ponto.append("  		 pes.numero,                                          ");
-        ponto.append("  		 pes.cidade,                                          ");
-        ponto.append("  		 pes.estado                                           ");
-        ponto.append("      from "+TABELA+" pon                                       ");
-        ponto.append("      join pessoa pes on pes._id = pon.pessoa_id                ");
-        ponto.append("     where 1 = 1 "+condicoes                                     );
+        StringBuilder pontoQuery = new StringBuilder();
+        pontoQuery.append("    select                                                      ");
+        pontoQuery.append("  		 pon._id,                                             ");
+        pontoQuery.append("  		 pon.pessoa_id,                                       ");
+        pontoQuery.append("  		 pon.data,                                            ");
+        pontoQuery.append("  		 pon.hora01,                                          ");
+        pontoQuery.append("  		 pon.hora02,                                          ");
+        pontoQuery.append("  		 pon.hora03,                                          ");
+        pontoQuery.append("  		 pon.hora04,                                          ");
+        pontoQuery.append("  		 pon.hora05,                                          ");
+        pontoQuery.append("  		 pon.hora06,                                          ");
+        pontoQuery.append("  		 pon.hora07,                                          ");
+        pontoQuery.append("  		 pon.hora08,                                          ");
+        pontoQuery.append("  		 pon.hora09,                                          ");
+        pontoQuery.append("  		 pon.hora10,                                          ");
+        pontoQuery.append("  		 pes.nome,                                            ");
+        pontoQuery.append("  		 pes.cpf,                                             ");
+        pontoQuery.append("  		 pes.aniversario,                                     ");
+        pontoQuery.append("  		 pes.logradouro,                                      ");
+        pontoQuery.append("  		 pes.telefone,                                        ");
+        pontoQuery.append("  		 pes.email,                                           ");
+        pontoQuery.append("  		 pes.senha,                                           ");
+        pontoQuery.append("  		 pes.numero,                                          ");
+        pontoQuery.append("  		 pes.cidade,                                          ");
+        pontoQuery.append("  		 pes.estado                                           ");
+        pontoQuery.append("      from "+TABELA+" pon                                       ");
+        pontoQuery.append("      join pessoa pes on pes._id = pon.pessoa_id                ");
+        pontoQuery.append("     where 1 = 1 "+condicoes                                     );
 
-        //TODO: FINALIZAR O PROCESSO DE JOIN E OBJETOS
-        Cursor cursor = db.rawQuery(ponto.toString(), parametros);
+        Cursor cursor = db.rawQuery(pontoQuery.toString(), parametros);
 
         if (cursor.getCount() > 0){
             cursor.moveToFirst();

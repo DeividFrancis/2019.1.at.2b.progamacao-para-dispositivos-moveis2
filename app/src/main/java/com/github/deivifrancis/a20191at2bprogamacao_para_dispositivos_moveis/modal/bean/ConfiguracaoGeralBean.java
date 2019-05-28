@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class ConfiguracaoGeralBean {
 
-
     public static final String IS_SENHA_SALVA = "isSalvaSenha";
     public static final String ULTIMO_LOGIN = "ultimoLogin";
     public static final String USUARIO = "usuario";

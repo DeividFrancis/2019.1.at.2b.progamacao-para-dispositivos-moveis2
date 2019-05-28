@@ -9,16 +9,16 @@ import com.github.deivifrancis.a20191at2bprogamacao_para_dispositivos_moveis.err
 public class ConfiguracaoGeralController {
 
 
-    ConfiguracaoGeralDAO dao;
+    ConfiguracaoGeralDAO configuracaoGeralDAO;
     public ConfiguracaoGeralController(Context context){
-        dao = new ConfiguracaoGeralDAO(context);
+        configuracaoGeralDAO = new ConfiguracaoGeralDAO(context);
     }
 
     public void inserir(ConfiguracaoGeralBean configuracaoGeralBean){
-        dao.inserir(configuracaoGeralBean);
+        configuracaoGeralDAO.inserir(configuracaoGeralBean);
     }
 
     public ConfiguracaoGeralBean busca() throws ErrorException {
-        return dao.buscar();
+        return configuracaoGeralDAO.buscar();
     }
 }
